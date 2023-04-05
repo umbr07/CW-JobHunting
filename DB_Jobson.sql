@@ -1,5 +1,9 @@
 --Create database
 Create database Jobson;
+use exam;
+
+--Drop database
+drop database Jobson;
 
 --Use database
 use Jobson;
@@ -8,10 +12,9 @@ use Jobson;
 --Create Users table-------------------
 Create table Users(
 	Id int IDENTITY(1,1) primary key,
-	Login varchar(50) not null,
+	Mail varchar(50) not null,
 	Password varchar(max) not null,
 	Phone varchar(50) not null,
-	Mail varchar(50) not null,
 	FirstName nvarchar(50) not null,
 	LastName nvarchar(50) not null,
 	Role int not null default 0,
@@ -45,11 +48,11 @@ Create table RespondVacancies(
 	Id_user int not null,
 )
 
-drop table AppleVacancies;
+drop table RespondVacancies;
 
 --Create Token table----------------------------
 Create table Tokens(
 	Id_users int not null primary key,
-	refreshToken nvarchar(max) not null
+	refreshToken nvarchar(max) 
 )
 drop table Tokens;
