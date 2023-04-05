@@ -11,7 +11,7 @@ router.post(
   userControllers.registration
 );
 router.post("/login", userControllers.login);
-router.get("/logout", userControllers.logout);
+router.post("/logout", userControllers.logout);
 router.get("/refresh", userControllers.refresh);
 router.get("/users", userControllers.GetAllUsers);
 

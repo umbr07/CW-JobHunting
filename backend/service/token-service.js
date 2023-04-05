@@ -27,6 +27,7 @@ class TokenService {
         where: { Id_users: searchUserId.Id },
         data: { refreshToken: refreshToken },
       });
+      return tokenData;
     }
     const token = await prisma.Tokens.create({
       data: {
@@ -34,6 +35,16 @@ class TokenService {
         refreshToken: refreshToken,
       },
     });
+  }
+
+  async removeToken(refreshToken) {
+    const searchUserId = await prisma.tokens.findFirst({
+      where: { refreshToken: refreshToken },
+    });
+    const tokenData = await prisma.tokens.delete({
+      where: { Id_users: searchUserId.Id_users },
+    });
+    return tokenData;
   }
 }
 

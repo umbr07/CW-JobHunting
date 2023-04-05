@@ -6,7 +6,7 @@ const tokenService = require("./token-service");
 const ApiError = require("../exceptions/api-error");
 
 class UserService {
-  async registration(login, password, phone, email, fname, lname) {
+  async registration(email, password, phone, fname, lname) {
     const candidate = await prisma.users.findFirst({ where: { Mail: email } });
     if (candidate) {
       throw ApiError.BadRequest(
@@ -14,13 +14,12 @@ class UserService {
       );
     }
     const salt = bcrypt.genSaltSync(3);
-    const hashPassword = bcrypt.hashSync("password123", salt);
+    const hashPassword = bcrypt.hashSync(password, salt);
     const user = await prisma.users.create({
       data: {
-        Login: login,
+        Mail: email,
         Password: hashPassword,
         Phone: phone,
-        Mail: email,
         FirstName: fname,
         LastName: lname,
       },
@@ -32,8 +31,8 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  async login(login, password) {
-    const user = await prisma.users.findFirst({ where: { Login: login } });
+  async login(email, password) {
+    const user = await prisma.users.findFirst({ where: { Mail: email } });
     if (!user) {
       throw ApiError.BadRequest("Неверный логин или пароль");
     }
@@ -47,6 +46,11 @@ class UserService {
 
     await tokenService.saveToken(userDto.Mail, tokens.refreshToken);
     return { ...tokens, user: userDto };
+  }
+
+  async logout(refreshToken) {
+    const token = await tokenService.removeToken(refreshToken);
+    return token;
   }
 }
 

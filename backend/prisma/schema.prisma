@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Company {
-  Id_company  Int        @id(map: "PK__Company__465FEAEAC59CBBD7") @default(autoincrement())
+  Id_company  Int        @id(map: "PK__Company__465FEAEA93240D3E") @default(autoincrement())
   NameCompany String     @db.NVarChar(50)
   Location    String     @db.NVarChar(50)
+  Users       Users      @relation(fields: [Id_company], references: [Id], onUpdate: NoAction, map: "FK_Company_Users")
   Vacancys    Vacancys[]
 }
 
 model RespondVacancies {
-  Id_vacancies Int      @id(map: "PK__RespondV__10479801756D1E44")
+  Id_vacancies Int      @id(map: "PK__RespondV__10479801988E918F")
   Id_user      Int
   Users        Users    @relation(fields: [Id_user], references: [Id], onUpdate: NoAction, map: "FK_RespondVacancies_Users")
   Vacancys     Vacancys @relation(fields: [Id_vacancies], references: [Id], onUpdate: NoAction, map: "FK_RespondVacancies_Vacancys")
@@ -24,28 +25,34 @@ model RespondVacancies {
 model sysdiagrams {
   name         String @db.NVarChar(128)
   principal_id Int
-  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61670CFB0F") @default(autoincrement())
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B617EED7C88") @default(autoincrement())
   version      Int?
   definition   Bytes?
 
   @@unique([principal_id, name], map: "UK_principal_name")
 }
 
+model Tokens {
+  Id_users     Int     @id(map: "PK__Tokens__98157C6D4388E604")
+  refreshToken String? @db.NVarChar(Max)
+  Users        Users   @relation(fields: [Id_users], references: [Id], onUpdate: NoAction, map: "FK_Tokens_Users")
+}
+
 model Users {
-  Id               Int                @id(map: "PK__Users__3214EC0792460E44") @default(autoincrement())
-  Login            String             @db.VarChar(50)
+  Id               Int                @id(map: "PK__Users__3214EC0721D84C36") @default(autoincrement())
+  Mail             String             @db.VarChar(50)
   Password         String             @db.VarChar(Max)
   Phone            String             @db.VarChar(50)
-  Mail             String             @db.VarChar(50)
   FirstName        String             @db.NVarChar(50)
   LastName         String             @db.NVarChar(50)
-  Role             Int                @default(0, map: "DF__Users__Role__5812160E")
+  Role             Int                @default(0, map: "DF__Users__Role__24927208")
+  Company          Company?
   RespondVacancies RespondVacancies[]
   Tokens           Tokens?
 }
 
 model Vacancys {
-  Id               Int               @id(map: "PK__Vacancys__3214EC07ACF0C68B") @default(autoincrement())
+  Id               Int               @id(map: "PK__Vacancys__3214EC072F96A446") @default(autoincrement())
   Id_company       Int
   Job_title        String            @db.NVarChar(50)
   Description      String            @db.NVarChar(50)
@@ -53,10 +60,4 @@ model Vacancys {
   Location         String            @db.NVarChar(50)
   RespondVacancies RespondVacancies?
   Company          Company           @relation(fields: [Id_company], references: [Id_company], onUpdate: NoAction, map: "FK_Vacancys_Company")
-}
-
-model Tokens {
-  Id_users     Int    @id(map: "PK__Tokens__98157C6D3BE31389")
-  refreshToken String @db.NVarChar(Max)
-  Users        Users  @relation(fields: [Id_users], references: [Id], onUpdate: NoAction, map: "FK_Tokens_Users")
 }
