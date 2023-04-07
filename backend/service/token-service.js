@@ -14,6 +14,24 @@ class TokenService {
     };
   }
 
+  validateAccessToken(token) {
+    try {
+      const userData = jwt.verify(token, "secret12345");
+      return userData;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  validateRefreshToken(token) {
+    try {
+      const userData = jwt.verify(token, "12secret12secret13");
+      return userData;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async saveToken(email, refreshToken) {
     const searchUserId = await prisma.users.findFirst({
       where: { Mail: email },
@@ -43,6 +61,13 @@ class TokenService {
     });
     const tokenData = await prisma.tokens.delete({
       where: { Id_users: searchUserId.Id_users },
+    });
+    return tokenData;
+  }
+
+  async findToken(refreshToken) {
+    const tokenData = await prisma.tokens.findFirst({
+      where: { refreshToken: refreshToken },
     });
     return tokenData;
   }

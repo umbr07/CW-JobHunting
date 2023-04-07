@@ -9,9 +9,14 @@ const errorMiddleware = require("./middlewares/error-middleware");
 const prisma = new PrismaClient();
 const server = express();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: "true",
+};
+
 server.use(express.json());
 server.use(cookieParser());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use("/api", router);
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
