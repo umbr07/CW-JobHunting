@@ -10,6 +10,7 @@ import { Context } from "..";
 import { NavLink } from "react-router-dom";
 import { HOME_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
+import { LOGIN_ROUTE } from "../utils/consts";
 
 const Menu = observer(() => {
   const { user } = useContext(Context);
@@ -53,12 +54,9 @@ const Menu = observer(() => {
             </Button>
           </Nav>
         ) : (
-          <Button
-            variant="outline-primary"
-            onClick={() => user.setIsAuth(true)}
-          >
-            Log in
-          </Button>
+          <NavLink to={LOGIN_ROUTE}>
+            <Button variant="outline-primary">Log in</Button>
+          </NavLink>
         )}
       </Container>
     </Navbar>

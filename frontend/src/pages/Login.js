@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../Styles/Style.css";
-import { NavLink } from "react-router-dom";
-import { REGISTRATION_ROUTE } from "../utils/consts";
+import { NavLink, useNavigate } from "react-router-dom";
+import { HOME_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 import { login } from "../http/userAPI";
 import { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { Context } from "..";
 
-export default function Login() {
+const Login = observer(() => {
+  const { user } = useContext(Context);
   const [Mail, setEmail] = useState(" ");
   const [Password, setPassword] = useState(" ");
+  const navigate = useNavigate();
 
   const sigin = async () => {
-    const response = await login(Mail, Password);
-    console.log(response);
+    try {
+      const response = await login(Mail, Password);
+      console.log(response);
+      user.setUser(user);
+      user.setIsAuth(true);
+      navigate(HOME_ROUTE);
+    } catch (e) {
+      alert(e.response);
+    }
   };
   return (
     <div>
@@ -50,12 +61,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button
-          onClick={sigin}
-          style={{ width: "165px" }}
-          variant="primary"
-          type="submit"
-        >
+        <Button onClick={sigin} style={{ width: "165px" }} variant="primary">
           Login
         </Button>
         <NavLink to={REGISTRATION_ROUTE}>
@@ -70,4 +76,6 @@ export default function Login() {
       </Form>
     </div>
   );
-}
+});
+
+export default Login;

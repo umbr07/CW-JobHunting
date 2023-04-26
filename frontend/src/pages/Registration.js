@@ -3,6 +3,8 @@ import Form from "react-bootstrap/Form";
 import "../Styles/Style.css";
 import { useState } from "react";
 import { registration } from "../http/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Registration() {
   const [Mail, setEmail] = useState(" ");
@@ -11,15 +13,46 @@ function Registration() {
   const [LastName, setLname] = useState(" ");
   const [Phone, setPhone] = useState(" ");
 
+  const successNotify = () => {
+    toast.success("The account has been successfully registered!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const errorNotify = (e) => {
+    toast.error(`Account creation error.`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
   const regin = async () => {
-    const response = await registration(
-      Mail,
-      Password,
-      FirstName,
-      LastName,
-      Phone
-    );
-    console.log(response);
+    try {
+      const response = await registration(
+        Mail,
+        Password,
+        FirstName,
+        LastName,
+        Phone
+      );
+      console.log(response);
+      successNotify();
+    } catch (e) {
+      errorNotify();
+    }
   };
 
   return (
@@ -28,14 +61,17 @@ function Registration() {
         style={{
           position: "absolute",
           left: "50%",
-          top: "35%",
+          top: "43%",
           transform: "translate(-50%, -50%)",
         }}
       >
         <h1 class="text-center mb-4 text-primary">Jobson</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>
+            Email address<span> *</span>
+          </Form.Label>
           <Form.Control
+            required
             style={{ width: "350px", height: "40px" }}
             type="email"
             placeholder="Enter email"
@@ -48,7 +84,9 @@ function Registration() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>
+            Password<span> *</span>
+          </Form.Label>
           <Form.Control
             style={{ width: "350px", height: "40px" }}
             type="password"
@@ -58,7 +96,9 @@ function Registration() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>
+            First Name<span> *</span>
+          </Form.Label>
           <Form.Control
             style={{ width: "350px", height: "40px" }}
             type="text"
@@ -68,7 +108,9 @@ function Registration() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label>
+            Last Name<span> *</span>
+          </Form.Label>
           <Form.Control
             style={{ width: "350px", height: "40px" }}
             type="text"
@@ -78,7 +120,9 @@ function Registration() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Phone Number</Form.Label>
+          <Form.Label>
+            Phone Number<span> *</span>
+          </Form.Label>
           <Form.Control
             style={{ width: "350px", height: "40px" }}
             type="text"
@@ -96,6 +140,7 @@ function Registration() {
           Registration
         </Button>
       </Form>
+      <ToastContainer />
     </div>
   );
 }

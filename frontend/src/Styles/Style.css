@@ -24,3 +24,12 @@
   text-decoration: none;
   color: black;
 }
+
+span {
+  color: red;
+}
+
+#btn_back_login {
+  margin-left: 300px;
+  margin-top: 65px;
+}
