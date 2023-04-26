@@ -40,6 +40,7 @@ class UserController {
         maxAge: 30 * 24 * 68 * 68 * 1000,
         httpOnly: true,
       });
+      res.cookie("Mail", userData.user.Mail);
 
       return res.json(userData);
     } catch (e) {
@@ -76,6 +77,16 @@ class UserController {
     try {
       const users = await userService.getUsers();
       return res.json(users);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getInfoUser(req, res, next) {
+    try {
+      const { refreshToken, Mail } = req.cookies;
+      const user = await userService.getInfo(Mail);
+      return res.json(user);
     } catch (e) {
       next(e);
     }

@@ -24,8 +24,8 @@ server.use(errorMiddleware);
 
 const start = async () => {
   try {
-    server.listen(3000, () => {
-      console.log("Server running at localhost:3000");
+    server.listen(5000, () => {
+      console.log("Server running at localhost:5000");
     });
   } catch (e) {
     console.log(e);

@@ -77,6 +77,13 @@ class UserService {
     const users = await prisma.users.findMany();
     return users;
   }
+
+  async getInfo(Mail) {
+    const user = await prisma.users.findFirst({
+      where: { Mail: Mail },
+    });
+    return user;
+  }
 }
 
 module.exports = new UserService();

@@ -10,10 +10,18 @@ router.post(
   body("Mail").isEmail(),
   body("Password").isLength({ min: 3, max: 32 }),
   userControllers.registration
-);
-router.post("/login", userControllers.login);
-router.post("/logout", userControllers.logout);
-router.get("/refresh", userControllers.refresh);
-router.get("/users", authMiddleware, userControllers.GetAllUsers);
+); /* Account registration */
+router.post("/login", userControllers.login); /* Log in to your account */
+router.post("/logout", userControllers.logout); /* Log out of your account */
+router.get("/refresh", userControllers.refresh); /* Updating the token */
+router.get(
+  "/users",
+  authMiddleware,
+  userControllers.GetAllUsers
+); /* Shows information about all users */
+router.post(
+  "/profiles",
+  userControllers.getInfoUser
+); /* We get information about the user in the profile */
 
 module.exports = router;
