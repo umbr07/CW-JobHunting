@@ -3,18 +3,15 @@ import Card from "react-bootstrap/Card";
 
 function Home() {
   return (
-    <Card>
-      <Card.Header>Featured</Card.Header>
+    <Card className="text-center">
       <Card.Body>
-        <Card.Title>Special title treatment</Card.Title>
+        <Card.Title>Jobson is convenient in everything.</Card.Title>
         <Card.Text>
-          With supporting text below as a natural lead-in to additional content.
-          With supporting text below as a natural lead-in to additional content.
-          With supporting text below as a natural lead-in to additional content.
-          With supporting text below as a natural lead-in to additional content.
-          With supporting text below as a natural lead-in to additional content.
+          This application is designed to find a job in the IT field. Easy to
+          use and user-friendly design makes it understandable for users of any
+          category.
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">Go to job search</Button>
       </Card.Body>
     </Card>
   );

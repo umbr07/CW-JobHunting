@@ -33,3 +33,26 @@ span {
   margin-left: 300px;
   margin-top: 65px;
 }
+
+#reg_comp {
+  text-decoration: none;
+}
+
+#reg_comp_p {
+  margin-top: 10px;
+}
+
+#supp_label {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#label {
+  color: #0d6efd;
+}
+
+#accord_menu {
+  width: 1316px;
+  margin-left: 297px;
+}

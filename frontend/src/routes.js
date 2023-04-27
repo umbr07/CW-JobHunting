@@ -3,14 +3,18 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profiles from "./pages/Profiles";
 import Registration from "./pages/Registration";
+import CompanyReg from "./pages/CompanyReg";
 import Vacancy from "./pages/Vacancy";
+import Support from "./pages/Support";
 import {
   ADMIN_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
   PROFILE_ROUTE,
   REGISTRATION_ROUTE,
+  REGISTRATION_COMPANY_ROUTE,
   VACANCY_ROUTE,
+  SUPPORT_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -38,7 +42,15 @@ export const publicRoutes = [
     Component: Registration,
   },
   {
-    path: VACANCY_ROUTE + "/:",
+    path: VACANCY_ROUTE,
     Component: Vacancy,
+  },
+  {
+    path: REGISTRATION_COMPANY_ROUTE,
+    Component: CompanyReg,
+  },
+  {
+    path: SUPPORT_ROUTE,
+    Component: Support,
   },
 ];

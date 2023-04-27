@@ -1,20 +1,22 @@
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../Styles/Style.css";
 import { useState } from "react";
-import { registration } from "../http/userAPI";
+import { regCompany } from "../http/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserStore from "../store/UserStore";
 import { NavLink } from "react-router-dom";
-import { REGISTRATION_COMPANY_ROUTE } from "../utils/consts";
 
-function Registration() {
+function CompanyReg() {
   const [Mail, setEmail] = useState(" ");
   const [Password, setPassword] = useState(" ");
   const [FirstName, setFname] = useState(" ");
   const [LastName, setLname] = useState(" ");
   const [Phone, setPhone] = useState(" ");
+  const [NameCompany, setNameCompany] = useState(" ");
+  const [Location, setLocation] = useState(" ");
 
   const successNotify = () => {
     toast.success("The account has been successfully registered!", {
@@ -44,12 +46,14 @@ function Registration() {
 
   const regin = async () => {
     try {
-      const response = await registration(
+      const response = await regCompany(
         Mail,
         Password,
         FirstName,
         LastName,
-        Phone
+        Phone,
+        NameCompany,
+        Location
       );
       console.log(response);
       successNotify();
@@ -64,11 +68,11 @@ function Registration() {
         style={{
           position: "absolute",
           left: "50%",
-          top: "43%",
+          top: "50%",
           transform: "translate(-50%, -50%)",
         }}
       >
-        <h1 class="text-center mb-4 text-primary">Jobson</h1>
+        <h1 class="text-center mb-4 text-primary">Jobson.corp</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>
             Email address<span> *</span>
@@ -133,6 +137,37 @@ function Registration() {
             value={Phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+          <Form.Text className="text-muted">
+            The company's current phone number.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>
+            Name company<span> *</span>
+          </Form.Label>
+          <Form.Control
+            style={{ width: "350px", height: "40px" }}
+            type="text"
+            placeholder="Phone Number"
+            value={NameCompany}
+            onChange={(e) => setNameCompany(e.target.value)}
+          />
+          <Form.Text className="text-muted">Valid company name.</Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>
+            Location<span> *</span>
+          </Form.Label>
+          <Form.Control
+            style={{ width: "350px", height: "40px" }}
+            type="text"
+            placeholder="Phone Number"
+            value={Location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <Form.Text className="text-muted">
+            The country or city where the company is located.
+          </Form.Text>
         </Form.Group>
         <Button
           onClick={regin}
@@ -142,15 +177,10 @@ function Registration() {
         >
           Registration
         </Button>
-        <NavLink id="reg_comp" to={REGISTRATION_COMPANY_ROUTE}>
-          <p class="text-center mb-4 text-primary" id="reg_comp_p">
-            Register an account to search for employees
-          </p>
-        </NavLink>
       </Form>
       <ToastContainer />
     </div>
   );
 }
 
-export default Registration;
+export default CompanyReg;
