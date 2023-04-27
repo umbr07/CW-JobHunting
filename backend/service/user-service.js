@@ -31,6 +31,48 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
+  async registrationCompany(
+    email,
+    password,
+    phone,
+    fname,
+    lname,
+    role,
+    company,
+    location
+  ) {
+    const candidate = await prisma.users.findFirst({ where: { Mail: email } });
+    if (candidate) {
+      throw ApiError.BadRequest(
+        `Компания с почтовым адресом ${email} уже существует!`
+      );
+    }
+    const salt = bcrypt.genSaltSync(3);
+    const hashPassword = bcrypt.hashSync(password, salt);
+    const user = await prisma.users.create({
+      data: {
+        Mail: email,
+        Password: hashPassword,
+        Phone: phone,
+        FirstName: fname,
+        LastName: lname,
+        Role: 1,
+        Company: {
+          create: {
+            NameCompany: company,
+            Location: location,
+          },
+        },
+      },
+      include: { Company: true },
+    });
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.Mail, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
+
   async login(email, password) {
     const user = await prisma.users.findFirst({ where: { Mail: email } });
     if (!user) {

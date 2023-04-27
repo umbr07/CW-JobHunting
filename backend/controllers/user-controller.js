@@ -32,6 +32,46 @@ class UserController {
     }
   }
 
+  async regCompany(req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(
+          ApiError.BadRequest("Ошибка при валидации", errors.array())
+        );
+      }
+      const {
+        Mail,
+        Password,
+        Phone,
+        FirstName,
+        LastName,
+        Role,
+        NameCompany,
+        Location,
+      } = req.body;
+      console.log(req.body);
+      const userData = await userService.registrationCompany(
+        Mail,
+        Password,
+        Phone,
+        FirstName,
+        LastName,
+        Role,
+        NameCompany,
+        Location
+      );
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 68 * 68 * 1000,
+        httpOnly: true,
+      });
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async login(req, res, next) {
     try {
       const { Mail, Password } = req.body;
