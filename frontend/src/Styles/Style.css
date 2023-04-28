@@ -7,6 +7,10 @@
   text-decoration: none;
 }
 
+#Navbar {
+  border-bottom: 1px solid #e3e3e3;
+}
+
 #reg_But_com {
   margin-left: 98px;
   width: 165px;
@@ -46,6 +50,7 @@ span {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
+  color: #666666;
 }
 
 #label {
@@ -54,5 +59,50 @@ span {
 
 #accord_menu {
   width: 1316px;
-  margin-left: 297px;
+  margin-left: 397px;
+}
+
+#search {
+  width: 500px;
+}
+
+#search_form {
+  margin-left: 780px;
+  margin-top: 30px;
+}
+
+#search_container {
+  background-color: white;
+}
+
+#search_text {
+  text-align: center;
+  margin-top: 55px;
+  color: #666666;
+}
+
+#search_text_middle {
+  text-align: center;
+  margin-top: 0px;
+  color: #666666;
+}
+
+#search_container {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+#form_search_container {
+  margin-bottom: 30px;
+}
+
+#vacancy-list {
+  margin-left: "405px";
+}
+
+#apply_btn_vacancy {
+  margin-left: 15px;
+}
+
+#card_vacancy {
+  margin-bottom: 15px;
 }

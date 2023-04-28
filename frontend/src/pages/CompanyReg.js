@@ -68,7 +68,7 @@ function CompanyReg() {
         style={{
           position: "absolute",
           left: "50%",
-          top: "50%",
+          top: "51%",
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -109,7 +109,7 @@ function CompanyReg() {
           <Form.Control
             style={{ width: "350px", height: "40px" }}
             type="text"
-            placeholder="First Name"
+            placeholder="Enter First Name"
             value={FirstName}
             onChange={(e) => setFname(e.target.value)}
           />

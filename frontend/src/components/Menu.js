@@ -16,7 +16,7 @@ import { VACANCY_ROUTE } from "../utils/consts";
 const Menu = observer(() => {
   const { user } = useContext(Context);
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg" id="Navbar">
       <Container>
         <Navbar.Brand>
           <NavLink id="Logo" to={HOME_ROUTE}>
