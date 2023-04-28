@@ -120,6 +120,11 @@ class UserService {
     return users;
   }
 
+  async getVacancy() {
+    const vacancy = await prisma.vacancys.findMany();
+    return vacancy;
+  }
+
   async getInfo(Mail) {
     const user = await prisma.users.findFirst({
       where: { Mail: Mail },

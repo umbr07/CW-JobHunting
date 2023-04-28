@@ -122,6 +122,15 @@ class UserController {
     }
   }
 
+  async GetAllVacancy(req, res, next) {
+    try {
+      const vacancy = await userService.getVacancy();
+      return res.json(vacancy);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async getInfoUser(req, res, next) {
     try {
       const { refreshToken, Mail } = req.cookies;

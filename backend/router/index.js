@@ -25,6 +25,7 @@ router.get(
   authMiddleware,
   userControllers.GetAllUsers
 ); /* Shows information about all users */
+router.get("/vacancy", userControllers.GetAllVacancy); /* Shows all vacancy */
 router.post(
   "/profiles",
   userControllers.getInfoUser
