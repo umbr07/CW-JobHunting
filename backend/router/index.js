@@ -18,6 +18,7 @@ router.post(
   userControllers.regCompany
 ); /* Company account registration */
 router.post("/login", userControllers.login); /* Log in to your account */
+router.get("/auth", authMiddleware, userControllers.check);
 router.post("/logout", userControllers.logout); /* Log out of your account */
 router.get("/refresh", userControllers.refresh); /* Updating the token */
 router.get(

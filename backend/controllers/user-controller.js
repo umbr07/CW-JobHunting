@@ -2,6 +2,13 @@ const userService = require("../service/user-service");
 var bodyParser = require("body-parser");
 const { validationResult } = require("express-validator");
 const ApiError = require("../exceptions/api-error");
+const jwt = require("jsonwebtoken");
+
+const generateJwt = (id, Mail, role) => {
+  return jwt.sign({ id, Mail, role }, "secret12345", {
+    expiresIn: "24h",
+  });
+};
 
 class UserController {
   async registration(req, res, next) {
@@ -21,10 +28,6 @@ class UserController {
         FirstName,
         LastName
       );
-      res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 68 * 68 * 1000,
-        httpOnly: true,
-      });
 
       return res.json(userData);
     } catch (e) {
@@ -76,16 +79,16 @@ class UserController {
     try {
       const { Mail, Password } = req.body;
       const userData = await userService.login(Mail, Password);
-      res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 68 * 68 * 1000,
-        httpOnly: true,
-      });
-      res.cookie("Mail", userData.user.Mail);
 
       return res.json(userData);
     } catch (e) {
       next(e);
     }
+  }
+
+  async check(req, res, next) {
+    const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    return res.json({ token });
   }
 
   async logout(req, res, next) {
@@ -133,7 +136,7 @@ class UserController {
 
   async getInfoUser(req, res, next) {
     try {
-      const { refreshToken, Mail } = req.cookies;
+      const { Mail } = req.cookies;
       const user = await userService.getInfo(Mail);
       return res.json(user);
     } catch (e) {

@@ -4,6 +4,13 @@ const bcrypt = require("bcrypt");
 const UserDto = require("../dtos/user-dto");
 const tokenService = require("./token-service");
 const ApiError = require("../exceptions/api-error");
+const jwt = require("jsonwebtoken");
+
+const generateJwt = (id, Mail, role) => {
+  return jwt.sign({ id, Mail, role }, "secret12345", {
+    expiresIn: "24h",
+  });
+};
 
 class UserService {
   async registration(email, password, phone, fname, lname) {
@@ -24,11 +31,8 @@ class UserService {
         LastName: lname,
       },
     });
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.Mail, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    const token = generateJwt(user.Id, user.Mail, user.Role);
+    return console.log(token);
   }
 
   async registrationCompany(
@@ -80,14 +84,13 @@ class UserService {
     }
 
     const isPassEquals = await bcrypt.compare(password, user.Password);
-    if (!user) {
+    if (!isPassEquals) {
       throw ApiError.BadRequest("Неверный логин или пароль");
     }
     const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const token = generateJwt(user.Id, user.Mail, user.Role);
 
-    await tokenService.saveToken(userDto.Mail, tokens.refreshToken);
-    return { ...tokens, user: userDto };
+    return { token, user: userDto };
   }
 
   async logout(refreshToken) {
