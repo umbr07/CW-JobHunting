@@ -1,5 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { VACANCY_ROUTE } from "../utils/consts";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -11,7 +13,9 @@ function Home() {
           use and user-friendly design makes it understandable for users of any
           category.
         </Card.Text>
-        <Button variant="primary">Go to job search</Button>
+        <Link id="btn" to={VACANCY_ROUTE}>
+          <Button variant="primary">Go to job search</Button>
+        </Link>
       </Card.Body>
     </Card>
   );

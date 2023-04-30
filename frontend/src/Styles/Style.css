@@ -106,3 +106,12 @@ span {
 #card_vacancy {
   margin-bottom: 15px;
 }
+
+#pagination {
+  cursor: pointer;
+}
+
+#btn {
+  text-decoration: none;
+  color: white;
+}

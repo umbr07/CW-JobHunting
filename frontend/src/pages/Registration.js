@@ -98,7 +98,7 @@ function Registration() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicFName">
           <Form.Label>
             First Name<span> *</span>
           </Form.Label>
@@ -110,7 +110,7 @@ function Registration() {
             onChange={(e) => setFname(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicLName">
           <Form.Label>
             Last Name<span> *</span>
           </Form.Label>
@@ -122,7 +122,7 @@ function Registration() {
             onChange={(e) => setLname(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPNumber">
           <Form.Label>
             Phone Number<span> *</span>
           </Form.Label>
