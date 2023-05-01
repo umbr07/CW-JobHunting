@@ -6,8 +6,6 @@ import { useState } from "react";
 import { regCompany } from "../http/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserStore from "../store/UserStore";
-import { NavLink } from "react-router-dom";
 
 function CompanyReg() {
   const [Mail, setEmail] = useState(" ");

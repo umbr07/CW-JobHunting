@@ -5,7 +5,6 @@ import { useState } from "react";
 import { registration } from "../http/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserStore from "../store/UserStore";
 import { NavLink } from "react-router-dom";
 import { REGISTRATION_COMPANY_ROUTE } from "../utils/consts";
 

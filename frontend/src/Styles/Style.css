@@ -115,3 +115,30 @@ span {
   text-decoration: none;
   color: white;
 }
+
+.box {
+  margin-left: 401px;
+  margin-top: 60px;
+  width: fit-content;
+  padding: 10px;
+}
+.flex {
+  display: flex;
+}
+.img {
+  width: 100%;
+}
+.box-img {
+  max-width: 200px;
+}
+.box-p {
+  margin-left: 120px;
+}
+.green {
+  margin-left: 15px;
+  color: green;
+}
+
+#profile_title {
+  text-align: center;
+}
