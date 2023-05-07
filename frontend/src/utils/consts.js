@@ -6,3 +6,4 @@ export const HOME_ROUTE = "/home";
 export const PROFILE_ROUTE = "/profiles";
 export const VACANCY_ROUTE = "/vacancy";
 export const SUPPORT_ROUTE = "/support";
+export const COMPANYPANEL_ROUTE = "/companypanel";

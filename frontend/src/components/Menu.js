@@ -86,7 +86,10 @@ const Menu = observer(() => {
           </Nav>
         ) : user.isAuth && UserRole === "1" ? (
           <Nav>
-            <Button variant="outline-primary" onClick={() => history("/admin")}>
+            <Button
+              variant="outline-primary"
+              onClick={() => history("/companypanel")}
+            >
               Add Vacancy
             </Button>
             <Button

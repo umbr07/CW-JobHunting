@@ -6,6 +6,7 @@ import Registration from "./pages/Registration";
 import CompanyReg from "./pages/CompanyReg";
 import Vacancy from "./pages/Vacancy";
 import Support from "./pages/Support";
+import CompanyPanel from "./pages/CompanyPanel";
 import {
   ADMIN_ROUTE,
   HOME_ROUTE,
@@ -15,6 +16,7 @@ import {
   REGISTRATION_COMPANY_ROUTE,
   VACANCY_ROUTE,
   SUPPORT_ROUTE,
+  COMPANYPANEL_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -25,6 +27,10 @@ export const authRoutes = [
   {
     path: PROFILE_ROUTE,
     Component: Profiles,
+  },
+  {
+    path: COMPANYPANEL_ROUTE,
+    Component: CompanyPanel,
   },
 ];
 

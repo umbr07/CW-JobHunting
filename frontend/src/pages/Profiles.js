@@ -8,10 +8,10 @@ export default function Profiles() {
   //Чтобы получить информацию о пользователе, я должен декодировать токен и вытащить из него почту
   //Далее подключить userApi, чтобы послать на бэк почту и вернуть информацию о пользователе на фронт
   //После чего уже через цикл map сделать вывод информации
-  // const jwt = localStorage.getItem("token");
-  // const decodedToken = jwt_decode(jwt);
-  // const userId = decodedToken.Mail;
-  // console.log(`почта ${userId}`);
+  const jwt = localStorage.getItem("token");
+  const decodedToken = jwt_decode(jwt, "secret12345");
+  const userId = decodedToken.id;
+  console.log(userId);
 
   return (
     <div class="box flex">
@@ -24,11 +24,11 @@ export default function Profiles() {
         <Card class="black" style={{ width: "34rem" }}>
           <Card.Body>
             <Card.Title id="profile_title">Profiles</Card.Title>
-            <Card.Text>First Name: </Card.Text>
+            <Card.Text>First Name: {userId}</Card.Text>
             <Card.Text>LastName: </Card.Text>
             <Card.Text>Email: </Card.Text>
             <Card.Text>Phone Number: </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Button variant="primary">Edit</Button>
           </Card.Body>
         </Card>
       </div>

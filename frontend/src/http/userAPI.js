@@ -60,3 +60,46 @@ export const check = async () => {
   console.log(localStorage);
   return response;
 };
+
+export const AddVacancy = async (CompanyId, Title, Desc, Salary, Location) => {
+  const CompId = parseInt(CompanyId);
+  const { data } = await $host.post("api/vacancys", {
+    CompId,
+    Title,
+    Desc,
+    Salary,
+    Location,
+  });
+  console.log(data);
+};
+
+export const AddVacancyCompany = async (Title, Desc, Salary, Location) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const CompId = parseInt(decodedToken.id);
+
+  const { data } = await $host.post("api/vacancys", {
+    CompId,
+    Title,
+    Desc,
+    Salary,
+    Location,
+  });
+  console.log(data);
+};
+
+export const DeletUser = async (userIdDelete) => {
+  const Id = parseInt(userIdDelete);
+  const { data } = await $host.post("api/deletusers", {
+    Id,
+  });
+  console.log(data);
+};
+
+export const DeletVacancy = async (vacancyIdDelete) => {
+  const Id = parseInt(vacancyIdDelete);
+  const { data } = await $host.post("api/deletvacancy", {
+    Id,
+  });
+  console.log(data);
+};

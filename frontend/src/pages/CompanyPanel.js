@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
-import CreateVacancy from "../components/modals/CreateVacancy";
-import DeleteUser from "../components/modals/DeleteUser";
+import CreateVacancyCompany from "../components/modals/CreateVacancyCompany";
 import DeleteVacancy from "../components/modals/DeleteVacancy";
 
-const Admin = () => {
+const CompanyPanel = () => {
   const [createVacancyVisible, setCreateVacancyVisible] = useState(false);
   const [deleteVacancyVisible, setDeleteVacancyVisible] = useState(false);
-  const [deleteUserVisible, setDeleteUserVisible] = useState(false);
 
   return (
     <Container className="d-flex flex-column">
@@ -26,14 +24,8 @@ const Admin = () => {
       >
         Delete vacancy
       </Button>
-      <Button
-        variant={"primary"}
-        className="mt-2 p-2"
-        onClick={() => setDeleteUserVisible(true)}
-      >
-        Delete user
-      </Button>
-      <CreateVacancy
+
+      <CreateVacancyCompany
         show={createVacancyVisible}
         onHide={() => setCreateVacancyVisible(false)}
       />
@@ -41,12 +33,8 @@ const Admin = () => {
         show={deleteVacancyVisible}
         onHide={() => setDeleteVacancyVisible(false)}
       />
-      <DeleteUser
-        show={deleteUserVisible}
-        onHide={() => setDeleteUserVisible(false)}
-      />
     </Container>
   );
 };
 
-export default Admin;
+export default CompanyPanel;
