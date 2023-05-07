@@ -64,11 +64,6 @@ class UserController {
         NameCompany,
         Location
       );
-      res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 68 * 68 * 1000,
-        httpOnly: true,
-      });
-
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -139,6 +134,17 @@ class UserController {
       const { Mail } = req.cookies;
       const user = await userService.getInfo(Mail);
       return res.json(user);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async DeleteUsers(req, res, next) {
+    try {
+      const { Id } = req.body;
+      const userData = await userService.deleteUser(Id);
+
+      return res.json(userData);
     } catch (e) {
       next(e);
     }

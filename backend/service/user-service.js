@@ -71,10 +71,10 @@ class UserService {
       include: { Company: true },
     });
     const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.Mail, tokens.refreshToken);
+    const token = generateJwt(user.Id, user.Mail, user.Role);
+    return console.log(token);
 
-    return { ...tokens, user: userDto };
+    return { user: userDto };
   }
 
   async login(email, password) {
@@ -88,7 +88,14 @@ class UserService {
       throw ApiError.BadRequest("Неверный логин или пароль");
     }
     const userDto = new UserDto(user);
-    const token = generateJwt(user.Id, user.Mail, user.Role);
+    const token = generateJwt(
+      user.Id,
+      user.Mail,
+      user.Role,
+      user.FirstName,
+      user.LastName,
+      user.Phone
+    );
 
     return { token, user: userDto };
   }
@@ -133,6 +140,20 @@ class UserService {
       where: { Mail: Mail },
     });
     return user;
+  }
+
+  async deleteUser(id) {
+    const user = await prisma.users.findFirst({ where: { Id: id } });
+    if (!user) {
+      throw ApiError.BadRequest(`Пользователя с ${id} id не существует`);
+    }
+    const deletedUser = await prisma.users.delete({
+      where: {
+        Id: id,
+      },
+    });
+
+    return deletedUser;
   }
 }
 

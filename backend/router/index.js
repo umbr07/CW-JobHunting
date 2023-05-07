@@ -2,6 +2,7 @@ const Router = require("express").Router;
 const userControllers = require("../controllers/user-controller");
 const { body } = require("express-validator");
 const authMiddleware = require("../middlewares/auth-middleware");
+const vacancyController = require("../controllers/vacancy-controller");
 
 const router = new Router();
 
@@ -23,7 +24,7 @@ router.post("/logout", userControllers.logout); /* Log out of your account */
 router.get("/refresh", userControllers.refresh); /* Updating the token */
 router.get(
   "/users",
-  authMiddleware,
+  //authMiddleware,
   userControllers.GetAllUsers
 ); /* Shows information about all users */
 router.get("/vacancy", userControllers.GetAllVacancy); /* Shows all vacancy */
@@ -31,5 +32,14 @@ router.post(
   "/profiles",
   userControllers.getInfoUser
 ); /* We get information about the user in the profile */
+router.post(
+  "/vacancys",
+  vacancyController.createVacancy
+); /* Create a new vacancy */
+router.post(
+  "/deletvacancy",
+  vacancyController.DeleteVacancy
+); /* Delete vacancy */
+router.post("/deletusers", userControllers.DeleteUsers); /* Delete user */
 
 module.exports = router;

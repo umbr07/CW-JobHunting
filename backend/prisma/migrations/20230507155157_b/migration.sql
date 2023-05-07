@@ -1,0 +1,22 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- DropForeignKey
+ALTER TABLE [dbo].[Vacancys] DROP CONSTRAINT [FK_Vacancys_Company];
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Vacancys] ADD CONSTRAINT [FK_Vacancys_Company] FOREIGN KEY ([Id_company]) REFERENCES [dbo].[Company]([Id_company]) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
