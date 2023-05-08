@@ -6,8 +6,8 @@ const tokenService = require("./token-service");
 const ApiError = require("../exceptions/api-error");
 const jwt = require("jsonwebtoken");
 
-const generateJwt = (id, Mail, role) => {
-  return jwt.sign({ id, Mail, role }, "secret12345", {
+const generateJwt = (id, Mail, role, fname, lname, phone) => {
+  return jwt.sign({ id, Mail, role, fname, lname, phone }, "secret12345", {
     expiresIn: "24h",
   });
 };
@@ -31,7 +31,14 @@ class UserService {
         LastName: lname,
       },
     });
-    const token = generateJwt(user.Id, user.Mail, user.Role);
+    const token = generateJwt(
+      user.Id,
+      user.Mail,
+      user.Role,
+      user.FirstName,
+      user.LastName,
+      user.Phone
+    );
     return console.log(token);
   }
 

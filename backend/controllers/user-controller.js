@@ -10,6 +10,12 @@ const generateJwt = (id, Mail, role) => {
   });
 };
 
+const generateJwtCheck = (id, Mail, role, fname, lname, phone) => {
+  return jwt.sign({ id, Mail, role, fname, lname, phone }, "secret12345", {
+    expiresIn: "24h",
+  });
+};
+
 class UserController {
   async registration(req, res, next) {
     try {
@@ -82,7 +88,14 @@ class UserController {
   }
 
   async check(req, res, next) {
-    const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    const token = generateJwtCheck(
+      req.user.id,
+      req.user.Mail,
+      req.user.role,
+      req.user.fname,
+      req.user.lname,
+      req.user.phone
+    );
     return res.json({ token });
   }
 
