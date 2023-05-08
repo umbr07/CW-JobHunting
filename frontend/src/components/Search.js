@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
+import { useState } from "react";
 
 function Search() {
+  const [searchTerm, setSearchTerm] = useState(" ");
+
   return (
     <div id="search_container">
       <h3 id="search_text">
@@ -27,6 +30,8 @@ function Search() {
                 className="me-2"
                 aria-label="Search"
                 id="search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Button variant="primary">Search</Button>
             </Form>

@@ -49,7 +49,7 @@ function CreateVacancy({ show, onHide }) {
             value={CompanyId}
             onChange={(e) => setCompany(e.target.value)}
           ></Form.Control>
-          <Form.Label className="mt-2">
+          <Form.Label>
             Job title<span> *</span>
           </Form.Label>
           <Form.Control
@@ -57,7 +57,7 @@ function CreateVacancy({ show, onHide }) {
             value={Title}
             onChange={(e) => setTitle(e.target.value)}
           ></Form.Control>
-          <Form.Label className="mt-2">
+          <Form.Label>
             Description<span> *</span>
           </Form.Label>
           <Form.Control
@@ -65,7 +65,7 @@ function CreateVacancy({ show, onHide }) {
             value={Desc}
             onChange={(e) => setDescription(e.target.value)}
           ></Form.Control>
-          <Form.Label className="mt-2">
+          <Form.Label>
             Salary for this position<span> *</span>
           </Form.Label>
           <Form.Control
@@ -73,7 +73,7 @@ function CreateVacancy({ show, onHide }) {
             value={Salary}
             onChange={(e) => setPosition(e.target.value)}
           ></Form.Control>
-          <Form.Label className="mt-2">
+          <Form.Label>
             City in which you will have to work<span> *</span>
           </Form.Label>
           <Form.Control
