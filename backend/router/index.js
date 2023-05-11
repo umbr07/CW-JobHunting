@@ -41,5 +41,16 @@ router.post(
   vacancyController.DeleteVacancy
 ); /* Delete vacancy */
 router.post("/deletusers", userControllers.DeleteUsers); /* Delete user */
+router.post("/editprofile", userControllers.EditUsers); /* edit profile */
+router.get(
+  "/usersinfo",
+  userControllers.GetInfoUser
+); /* user info in profiles */
+
+router.get(
+  "/vacancyinfo",
+  vacancyController.GetAllVacancyCompany
+); /* Shows all vacancies of a certain company  */
+router.post("/vacancyapply", vacancyController.ApplyVacancyUser);
 
 module.exports = router;

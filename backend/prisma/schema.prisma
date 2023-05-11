@@ -8,11 +8,10 @@ datasource db {
 }
 
 model Company {
-  Id_company  Int        @id(map: "PK__Company__465FEAEA900221FC")
-  NameCompany String     @db.NVarChar(50)
-  Location    String     @db.NVarChar(50)
-  Users       Users      @relation(fields: [Id_company], references: [Id], onUpdate: NoAction, map: "FK_Company_Users", onDelete: Cascade)
-  Vacancys    Vacancys[]
+  Id_company  Int    @id(map: "PK__Company__465FEAEA900221FC")
+  NameCompany String @db.NVarChar(50)
+  Location    String @db.NVarChar(50)
+  Users       Users  @relation(fields: [Id_company], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Company_Users")
 }
 
 model sysdiagrams {
@@ -39,16 +38,20 @@ model Users {
   FirstName String   @db.NVarChar(50)
   LastName  String   @db.NVarChar(50)
   Role      Int      @default(0, map: "DF__Users__Role__49C3F6B7")
-  Company   Company? 
+  Company   Company?
   Tokens    Tokens?
 }
 
 model Vacancys {
-  Id          Int     @id(map: "PK__Vacancys__3214EC0773B6A8F2") @default(autoincrement())
   Id_company  Int
-  Job_title   String  @db.NVarChar(50)
-  Description String  @db.NVarChar(50)
-  Salary      String  @db.NVarChar(30)
-  Location    String  @db.NVarChar(50)
-  Company     Company @relation(fields: [Id_company], references: [Id_company], onUpdate: NoAction, map: "FK_Vacancys_Company", onDelete: Cascade)
+  Id          Int    @id(map: "PK__Vacancys__3214EC07E4BDB7F3") @default(autoincrement())
+  Job_title   String @db.NVarChar(50)
+  Description String @db.NVarChar(50)
+  Salary      String @db.NVarChar(30)
+  Location    String @db.NVarChar(50)
+}
+
+model RespondVacancies {
+  Id_vacancies Int @id(map: "PK__RespondV__1047980164C46BC1")
+  Id_user      Int
 }

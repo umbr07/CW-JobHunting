@@ -162,6 +162,25 @@ class UserService {
 
     return deletedUser;
   }
+
+  async editUser(id, fname, lname, phone) {
+    const user = await prisma.users.update({
+      where: { Id: id },
+      data: {
+        FirstName: fname,
+        LastName: lname,
+        Phone: phone,
+      },
+    });
+    return user;
+  }
+
+  async getInfoUser(id) {
+    const user = await prisma.users.findFirst({
+      where: { Id: id },
+    });
+    return user;
+  }
 }
 
 module.exports = new UserService();

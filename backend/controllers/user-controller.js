@@ -162,6 +162,28 @@ class UserController {
       next(e);
     }
   }
+
+  async EditUsers(req, res, next) {
+    try {
+      const { Id, Fname, Lname, Phone } = req.body;
+      const userData = await userService.editUser(Id, Fname, Lname, Phone);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async GetInfoUser(req, res, next) {
+    try {
+      const { userId } = req.body;
+      const userData = await userService.getInfoUser(userId);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new UserController();
