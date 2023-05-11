@@ -5,8 +5,11 @@ import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
 
-function Search() {
-  const [searchTerm, setSearchTerm] = useState(" ");
+function Search({ searchTerm, setSearchTerm }) {
+  const searchVacancy = async (e) => {
+    e.preventDefault();
+    console.log(`Searching for ${searchTerm}...`);
+  };
 
   return (
     <div id="search_container">
@@ -33,7 +36,9 @@ function Search() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <Button variant="primary">Search</Button>
+              <Button variant="primary" onClick={searchVacancy}>
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>

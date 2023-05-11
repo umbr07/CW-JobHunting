@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import avatar from "../static/avatar.png";
 import jwt_decode from "jwt-decode";
 import EditProfile from "../components/modals/EditProfile";
+import axios from "axios";
 
 export default function Profiles() {
-  const [editInfoVisible, setEditInfoVisible] = useState(false);
-
   const jwt = localStorage.getItem("token");
   const decodedToken = jwt_decode(jwt, "secret12345");
   const userId = decodedToken.id;
-  console.log(userId);
+
+  const [Info, setInfo] = useState([]);
+
+  const UserInfoAxios = async () => {
+    const res = await axios.get("http://localhost:5000/api/usersinfo", {
+      userId,
+    });
+    setInfo(res.data);
+  };
+
+  useEffect(() => {
+    UserInfoAxios();
+  }, []);
+
+  const [editInfoVisible, setEditInfoVisible] = useState(false);
 
   return (
     <div class="box flex">
@@ -25,16 +38,16 @@ export default function Profiles() {
           <Card.Body>
             <Card.Title id="profile_title">Profiles</Card.Title>
             <Card.Text>
-              First Name: <strong>{decodedToken.fname}</strong>
+              First Name: <strong>{Info.FirstName}</strong>
             </Card.Text>
             <Card.Text>
-              Last Name: <strong>{decodedToken.lname}</strong>
+              Last Name: <strong>{Info.LastName}</strong>
             </Card.Text>
             <Card.Text>
-              Email: <strong>{decodedToken.Mail}</strong>
+              Email: <strong>{Info.Mail}</strong>
             </Card.Text>
             <Card.Text>
-              Phone Number: <strong>{decodedToken.phone}</strong>
+              Phone Number: <strong>{Info.Phone}</strong>
             </Card.Text>
             <Button variant="primary" onClick={() => setEditInfoVisible(true)}>
               Edit
@@ -44,8 +57,24 @@ export default function Profiles() {
         <EditProfile
           show={editInfoVisible}
           onHide={() => setEditInfoVisible(false)}
-          decodedToken={decodedToken}
+          Info={Info}
         />
+      </div>
+      <div class="box-img">
+        <Card class="black" style={{ width: "25rem" }} id="information_more">
+          <Card.Body>
+            <Card.Title id="profile_title">Information</Card.Title>
+            <Card.Text>
+              GitHub: <strong></strong>
+            </Card.Text>
+            <Card.Text>
+              Linkedin: <strong></strong>
+            </Card.Text>
+            <Button variant="primary" onClick={() => setEditInfoVisible(true)}>
+              Add information
+            </Button>
+          </Card.Body>
+        </Card>
       </div>
     </div>
   );

@@ -1,17 +1,24 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React, { useState, useEffect } from "react";
-import VacancyInfo from "../VacancyInfo";
+import VacancyInfoCompany from "../VacancyInfoCompany";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { DeletVacancy } from "../../http/userAPI";
+import jwt_decode from "jwt-decode";
 
-function DeleteVacancy({ show, onHide }) {
+function DeleteVacancyCompany({ show, onHide }) {
+  const jwt = localStorage.getItem("token");
+  const decodedToken = jwt_decode(jwt, "secret12345");
+  const userId = parseInt(decodedToken.id);
+
   const [Info, setInfo] = useState([]);
   const [vacancyIdDelete, setVacancyIdDelete] = useState(" ");
 
   const loadVacancyInfo = async () => {
-    const res = await axios.get("http://localhost:5000/api/vacancy");
+    const res = await axios.get("http://localhost:5000/api/vacancyinfo", {
+      userId,
+    });
     setInfo(res.data);
   };
 
@@ -64,7 +71,7 @@ function DeleteVacancy({ show, onHide }) {
           <div
             style={{ height: "600px", width: "1715px", overflowY: "scroll" }}
           >
-            <VacancyInfo Info={Info} />
+            <VacancyInfoCompany Info={Info} />
           </div>
         </Modal.Body>
       </Modal>
@@ -72,4 +79,4 @@ function DeleteVacancy({ show, onHide }) {
   );
 }
 
-export default DeleteVacancy;
+export default DeleteVacancyCompany;

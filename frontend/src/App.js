@@ -19,11 +19,16 @@ const App = observer(() => {
           user.setIsAuth(true);
         })
         .finally(() => setLoading(false));
-    }, 1000);
+    }, 2500);
   }, []);
 
   if (loading) {
-    return <Spinner animation={"grow"} />;
+    return (
+      <div>
+        <Spinner animation="border" id="loading" />
+        <p id="loading-text">Loading...</p>
+      </div>
+    );
   }
 
   return (

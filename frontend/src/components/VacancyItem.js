@@ -9,7 +9,6 @@ export default function VacancyItem({ vacancy, loading }) {
   const [selectedVacancy, setSelectedVacancy] = useState(null); /**/
 
   const handleViewVacancy = (vacancy) => {
-    /* */
     setSelectedVacancy(vacancy);
     setVacancyVisible(true);
   };

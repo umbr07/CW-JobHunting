@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 import CreateVacancyCompany from "../components/modals/CreateVacancyCompany";
-import DeleteVacancy from "../components/modals/DeleteVacancy";
+import DeleteVacancyCompany from "../components/modals/DeleteVacancyCompany";
 
 const CompanyPanel = () => {
   const [createVacancyVisible, setCreateVacancyVisible] = useState(false);
@@ -22,14 +22,14 @@ const CompanyPanel = () => {
         className="mt-2 p-2"
         onClick={() => setDeleteVacancyVisible(true)}
       >
-        Delete vacancy
+        Delete company vacancy
       </Button>
 
       <CreateVacancyCompany
         show={createVacancyVisible}
         onHide={() => setCreateVacancyVisible(false)}
       />
-      <DeleteVacancy
+      <DeleteVacancyCompany
         show={deleteVacancyVisible}
         onHide={() => setDeleteVacancyVisible(false)}
       />

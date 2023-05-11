@@ -1,14 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React, { useState, useEffect } from "react";
-import CreateVacancy from "./CreateVacancy";
 import UsersInfo from "../UsersInfo";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { DeletUser } from "../../http/userAPI";
 
 function DeleteUser({ show, onHide }) {
-  const [createVacancyVisible, setCreateVacancyVisible] = useState(false);
   const [Info, setInfo] = useState([]);
   const [userIdDelete, setUserIdDelete] = useState(" ");
 
@@ -40,10 +38,7 @@ function DeleteUser({ show, onHide }) {
         dialogClassName={"modal-fullscreen"}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Admin panel</Modal.Title>
-          <Button onClick={() => setCreateVacancyVisible(true)}>
-            Add vacancy
-          </Button>
+          <Modal.Title>Users info panel</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex">
           <div style={{ height: "200px", width: "400px" }}>
@@ -73,10 +68,6 @@ function DeleteUser({ show, onHide }) {
           </div>
         </Modal.Body>
       </Modal>
-      <CreateVacancy
-        show={createVacancyVisible}
-        onHide={() => setCreateVacancyVisible(false)}
-      />
     </div>
   );
 }

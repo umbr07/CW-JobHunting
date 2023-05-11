@@ -142,3 +142,19 @@ span {
 #profile_title {
   text-align: center;
 }
+
+#loading {
+  margin-left: 1040px;
+  margin-top: 350px;
+  width: 45px;
+  height: 45px;
+}
+
+#loading-text {
+  text-align: center;
+  font-size: 20px;
+}
+
+#information_more {
+  margin-left: 34px;
+}

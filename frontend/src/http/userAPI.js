@@ -103,3 +103,16 @@ export const DeletVacancy = async (vacancyIdDelete) => {
   });
   console.log(data);
 };
+
+export const EditUser = async (Fname, Lname, Phone) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const Id = parseInt(decodedToken.id);
+  const { data } = await $host.post("api/editprofile", {
+    Id,
+    Fname,
+    Lname,
+    Phone,
+  });
+  console.log(data);
+};
