@@ -5,6 +5,8 @@ import avatar from "../static/avatar.png";
 import jwt_decode from "jwt-decode";
 import EditProfile from "../components/modals/EditProfile";
 import axios from "axios";
+import SocialNetworkProfile from "../components/modals/SocialNetworkProfile";
+import { NavLink } from "react-router-dom";
 
 export default function Profiles() {
   const jwt = localStorage.getItem("token");
@@ -12,24 +14,38 @@ export default function Profiles() {
   const userId = decodedToken.id;
 
   const [Info, setInfo] = useState([]);
+  const [InfoNetwork, setInfoNetwork] = useState([]);
 
   const UserInfoAxios = async () => {
-    const res = await axios.get("http://localhost:5000/api/usersinfo", {
-      userId,
-    });
+    const res = await axios.get(
+      `http://localhost:5000/api/usersinfo/${userId}`
+    );
     setInfo(res.data);
   };
 
+  const UserNetworkAxios = async () => {
+    const res = await axios.get(
+      `http://localhost:5000/api/usersinfonetwork/${userId}`
+    );
+    setInfoNetwork(res.data);
+  };
+
+  //Доделать часть, что когда данные в нетворке есть и их надо изменить мы кидаем маршрут на апдейт
+  //Если данных в таблице нету, мы кидаем маршрут на создание
+  //const updateNetworkInfo = async () => {};
+
   useEffect(() => {
     UserInfoAxios();
+    UserNetworkAxios();
   }, []);
 
   const [editInfoVisible, setEditInfoVisible] = useState(false);
+  const [editNetworkVisible, seteditNetworkVisible] = useState(false);
 
   return (
     <div class="box flex">
       <div class="box-img">
-        <Card style={{ width: "18rem" }} class="img">
+        <Card style={{ width: "18rem" }} class="img" id="avatar_profile">
           <Card.Img variant="top" src={avatar} />
         </Card>
       </div>
@@ -58,23 +74,50 @@ export default function Profiles() {
           show={editInfoVisible}
           onHide={() => setEditInfoVisible(false)}
           Info={Info}
+          UserInfoAxios={UserInfoAxios}
         />
       </div>
-      <div class="box-img">
-        <Card class="black" style={{ width: "25rem" }} id="information_more">
+      <div>
+        {" "}
+        <Card class="black" style={{ width: "25.5rem" }} id="information_more">
           <Card.Body>
-            <Card.Title id="profile_title">Information</Card.Title>
+            <Card.Title id="profile_title">Social network</Card.Title>
             <Card.Text>
-              GitHub: <strong></strong>
+              GitHub:{" "}
+              <strong>
+                <NavLink
+                  to={InfoNetwork ? InfoNetwork.git_hub : ""}
+                  target="_blank"
+                >
+                  {InfoNetwork ? InfoNetwork.git_hub : " "}
+                </NavLink>
+              </strong>
             </Card.Text>
             <Card.Text>
-              Linkedin: <strong></strong>
+              LinkedIn:{" "}
+              <strong>
+                <NavLink
+                  to={InfoNetwork ? InfoNetwork.linked_in : ""}
+                  target="_blank"
+                >
+                  {InfoNetwork ? InfoNetwork.linked_in : " "}
+                </NavLink>
+              </strong>
             </Card.Text>
-            <Button variant="primary" onClick={() => setEditInfoVisible(true)}>
-              Add information
+            <Button
+              variant="primary"
+              onClick={() => seteditNetworkVisible(true)}
+            >
+              Edit
             </Button>
           </Card.Body>
         </Card>
+        <SocialNetworkProfile
+          show={editNetworkVisible}
+          onHide={() => seteditNetworkVisible(false)}
+          InfoNetwork={InfoNetwork}
+          UserNetworkAxios={UserNetworkAxios}
+        />
       </div>
     </div>
   );

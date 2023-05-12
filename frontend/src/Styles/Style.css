@@ -156,5 +156,9 @@ span {
 }
 
 #information_more {
-  margin-left: 34px;
+  margin-left: 30px;
+}
+
+#avatar_profile {
+  padding: 15px;
 }

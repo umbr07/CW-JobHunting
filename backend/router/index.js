@@ -42,13 +42,21 @@ router.post(
 ); /* Delete vacancy */
 router.post("/deletusers", userControllers.DeleteUsers); /* Delete user */
 router.post("/editprofile", userControllers.EditUsers); /* edit profile */
+router.post(
+  "/editprofilenetwork",
+  userControllers.EditUsersNetwork
+); /* edit profile */
 router.get(
-  "/usersinfo",
+  "/usersinfo/:id",
   userControllers.GetInfoUser
 ); /* user info in profiles */
+router.get(
+  "/usersinfonetwork/:id",
+  userControllers.GetInfoUserNetwork
+); /* user network info in profiles */
 
 router.get(
-  "/vacancyinfo",
+  "/vacancyinfo/:id",
   vacancyController.GetAllVacancyCompany
 ); /* Shows all vacancies of a certain company  */
 router.post("/vacancyapply", vacancyController.ApplyVacancyUser);

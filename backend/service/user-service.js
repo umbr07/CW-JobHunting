@@ -181,6 +181,24 @@ class UserService {
     });
     return user;
   }
+
+  async getNetworkInfoUser(id) {
+    const user = await prisma.SocialNetwork.findFirst({
+      where: { Id_user: id },
+    });
+    return user;
+  }
+
+  async editUsersNetwork(id, git_hub, linked_in) {
+    const user = await prisma.SocialNetwork.create({
+      data: {
+        Id_user: id,
+        git_hub: git_hub,
+        linked_in: linked_in,
+      },
+    });
+    return user;
+  }
 }
 
 module.exports = new UserService();

@@ -9,8 +9,8 @@ function VacancyInfoCompany({ Info }) {
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>ID</th>
             <th>ID Company</th>
+            <th>ID</th>
             <th>Job title</th>
             <th>Description</th>
             <th>Salary</th>

@@ -176,8 +176,35 @@ class UserController {
 
   async GetInfoUser(req, res, next) {
     try {
-      const { userId } = req.body;
+      const userId = parseInt(req.params.id);
+      console.log(req.body);
       const userData = await userService.getInfoUser(userId);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async GetInfoUserNetwork(req, res, next) {
+    try {
+      const userId = parseInt(req.params.id);
+      const userData = await userService.getNetworkInfoUser(userId);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async EditUsersNetwork(req, res, next) {
+    try {
+      const { userId, git_hub, linked_in } = req.body;
+      const userData = await userService.editUsersNetwork(
+        userId,
+        git_hub,
+        linked_in
+      );
 
       return res.json(userData);
     } catch (e) {

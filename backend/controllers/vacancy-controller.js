@@ -37,7 +37,7 @@ class VacancyController {
 
   async GetAllVacancyCompany(req, res, next) {
     try {
-      const { Id } = req.body;
+      const Id = parseInt(req.params.id);
       console.log(Id);
       const VacancyData = await vacancyService.GetAllVacancyCompany(Id);
 

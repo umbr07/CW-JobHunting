@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { EditUser } from "../../http/userAPI";
 
-function EditeProfile({ show, onHide, Info }) {
-  const [Fname, setFname] = useState(Info.FirstName);
-  const [Lname, setLname] = useState(Info.LastName);
-  const [Phone, setPhone] = useState(Info.Phone);
+function EditeProfile({ show, onHide, Info, UserInfoAxios }) {
+  const [Fname, setFname] = useState(" ");
+  const [Lname, setLname] = useState(" ");
+  const [Phone, setPhone] = useState(" ");
 
   const EditInfoUser = async () => {
     try {
       const response = await EditUser(Fname, Lname, Phone);
       console.log(response);
+      UserInfoAxios();
     } catch (e) {
       alert(e.response);
     }
   };
+
+  useEffect(() => {
+    setFname(Info.FirstName);
+    setLname(Info.LastName);
+    setPhone(Info.Phone);
+  }, [Info]);
 
   return (
     <Modal
@@ -53,7 +60,7 @@ function EditeProfile({ show, onHide, Info }) {
             Phone Number<span> *</span>
           </Form.Label>
           <Form.Control
-            placeholder={"Enter the phone number"}
+            placeholder={"Enter the Phone Number"}
             value={Phone}
             onChange={(e) => setPhone(e.target.value)}
           ></Form.Control>

@@ -51,7 +51,15 @@ model Vacancys {
   Location    String @db.NVarChar(50)
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model RespondVacancies {
-  Id_vacancies Int @id(map: "PK__RespondV__1047980164C46BC1")
-  Id_user      Int
+  Id           Int @id(map: "PK__RespondV__3214EC07764540DD") @default(autoincrement())
+  Id_vacancies Int
+  Id_user      Int  
+}
+
+model SocialNetwork {
+  Id_user   Int     @id(map: "PK__SocialNe__B607F2482BC44F4F")
+  git_hub   String? @db.NVarChar(Max)
+  linked_in String? @db.NVarChar(Max)
 }
