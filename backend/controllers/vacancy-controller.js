@@ -35,6 +35,22 @@ class VacancyController {
     }
   }
 
+  async DeleteVacancyCompany(req, res, next) {
+    try {
+      const { Id } = req.body;
+      const Id_comp = parseInt(req.params.id);
+      console.log(Id, Id_comp);
+      const VacancyData = await vacancyService.deleteVacancyCompany(
+        Id,
+        Id_comp
+      );
+
+      return res.json(VacancyData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async GetAllVacancyCompany(req, res, next) {
     try {
       const Id = parseInt(req.params.id);
@@ -55,6 +71,17 @@ class VacancyController {
         id_vacancy,
         id_user
       );
+      return res.json(VacancyData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async VacancySearch(req, res, next) {
+    try {
+      const { searchTerm } = req.body;
+      console.log(searchTerm);
+      const VacancyData = await vacancyService.vacancySearch(searchTerm);
       return res.json(VacancyData);
     } catch (e) {
       next(e);

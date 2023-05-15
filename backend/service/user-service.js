@@ -164,6 +164,15 @@ class UserService {
   }
 
   async editUser(id, fname, lname, phone) {
+    if (fname === "") {
+      throw ApiError.BadRequest(`Заполните все поля`);
+    }
+    if (lname === "") {
+      throw ApiError.BadRequest(`Заполните все поля`);
+    }
+    if (phone === "") {
+      throw ApiError.BadRequest(`Заполните все поля`);
+    }
     const user = await prisma.users.update({
       where: { Id: id },
       data: {
