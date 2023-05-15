@@ -5,10 +5,40 @@ import VacancyInfo from "../VacancyInfo";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { DeletVacancy } from "../../http/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DeleteVacancy({ show, onHide }) {
   const [Info, setInfo] = useState([]);
-  const [vacancyIdDelete, setVacancyIdDelete] = useState(" ");
+  const [vacancyIdDelete, setVacancyIdDelete] = useState("");
+
+  const [companyIdError, setCompanyIdError] = useState(false);
+
+  const successNotify = (s) => {
+    toast.success(s, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const errorNotify = (e) => {
+    toast.error(e, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   const loadVacancyInfo = async () => {
     const res = await axios.get("http://localhost:5000/api/vacancy");
@@ -20,12 +50,25 @@ function DeleteVacancy({ show, onHide }) {
   }, []);
 
   const deletVacancy = async () => {
-    try {
-      const response = await DeletVacancy(vacancyIdDelete);
-      console.log(response);
-      loadVacancyInfo();
-    } catch (e) {
-      alert(e.response);
+    if (!vacancyIdDelete) {
+      setCompanyIdError(true);
+    } else {
+      setCompanyIdError(false);
+    }
+    if (vacancyIdDelete) {
+      try {
+        const response = await DeletVacancy(vacancyIdDelete);
+        console.log(response);
+        loadVacancyInfo();
+        let success = "The vacancy was successfully deleted";
+        successNotify(success);
+      } catch (e) {
+        let error = "Fill in the field correctly";
+        errorNotify(error);
+      }
+    } else {
+      let errors = "Fill in all the fields correctly";
+      errorNotify(errors);
     }
   };
 
@@ -51,6 +94,7 @@ function DeleteVacancy({ show, onHide }) {
                 placeholder={"Enter the user ID"}
                 value={vacancyIdDelete}
                 onChange={(e) => setVacancyIdDelete(e.target.value)}
+                className={companyIdError ? "is-invalid" : ""}
               ></Form.Control>
               <Button
                 variant="outline-danger"
@@ -67,6 +111,7 @@ function DeleteVacancy({ show, onHide }) {
             <VacancyInfo Info={Info} />
           </div>
         </Modal.Body>
+        <ToastContainer />
       </Modal>
     </div>
   );

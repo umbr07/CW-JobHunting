@@ -87,6 +87,12 @@ span {
   color: #666666;
 }
 
+#not_search {
+  text-align: center;
+  color: #666666;
+  margin-top: 120px;
+}
+
 #search_container {
   border-bottom: 1px solid #e3e3e3;
 }
@@ -161,4 +167,23 @@ span {
 
 #avatar_profile {
   padding: 15px;
+}
+
+#apply_vacancy {
+  background-color: red;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+
+#img_descript {
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+}
+
+#img_network {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
 }

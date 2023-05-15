@@ -104,6 +104,15 @@ export const DeletVacancy = async (vacancyIdDelete) => {
   console.log(data);
 };
 
+export const DeletVacancyCompany = async (vacancyIdDelete, userId) => {
+  const Id = parseInt(vacancyIdDelete);
+  const companyId = parseInt(userId);
+  const { data } = await $host.post(`api/deletvacancycomp/${companyId}`, {
+    Id,
+  });
+  console.log(data);
+};
+
 export const EditUser = async (Fname, Lname, Phone) => {
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);

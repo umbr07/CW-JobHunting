@@ -5,10 +5,40 @@ import UsersInfo from "../UsersInfo";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { DeletUser } from "../../http/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DeleteUser({ show, onHide }) {
   const [Info, setInfo] = useState([]);
-  const [userIdDelete, setUserIdDelete] = useState(" ");
+  const [userIdDelete, setUserIdDelete] = useState("");
+
+  const [userIdError, setUserIdError] = useState(false);
+
+  const successNotify = (s) => {
+    toast.success(s, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const errorNotify = (e) => {
+    toast.error(e, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   const loadUserInfo = async () => {
     const res = await axios.get("http://localhost:5000/api/users");
@@ -20,12 +50,25 @@ function DeleteUser({ show, onHide }) {
   }, []);
 
   const deletUser = async () => {
-    try {
-      const response = await DeletUser(userIdDelete);
-      console.log(response);
-      loadUserInfo();
-    } catch (e) {
-      alert(e.response);
+    if (!userIdDelete) {
+      setUserIdError(true);
+    } else {
+      setUserIdError(false);
+    }
+    if (userIdDelete) {
+      try {
+        const response = await DeletUser(userIdDelete);
+        console.log(response);
+        loadUserInfo();
+        let success = "The vacancy was successfully deleted";
+        successNotify(success);
+      } catch (e) {
+        let error = "Fill in the field correctly";
+        errorNotify(error);
+      }
+    } else {
+      let errors = "Fill in all the fields correctly";
+      errorNotify(errors);
     }
   };
 
@@ -51,6 +94,7 @@ function DeleteUser({ show, onHide }) {
                 placeholder={"Enter the user ID"}
                 value={userIdDelete}
                 onChange={(e) => setUserIdDelete(e.target.value)}
+                className={userIdError ? "is-invalid" : ""}
               ></Form.Control>
               <Button
                 variant="outline-danger"
@@ -67,6 +111,7 @@ function DeleteUser({ show, onHide }) {
             <UsersInfo Info={Info} />
           </div>
         </Modal.Body>
+        <ToastContainer />
       </Modal>
     </div>
   );

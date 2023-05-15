@@ -7,7 +7,9 @@ function Home() {
   return (
     <Card className="text-center">
       <Card.Body>
-        <Card.Title>Jobson is convenient in everything.</Card.Title>
+        <Card.Title>
+          <span id="label">Jobson</span> is convenient in everything.
+        </Card.Title>
         <Card.Text>
           This application is designed to find a job in the IT field. Easy to
           use and user-friendly design makes it understandable for users of any

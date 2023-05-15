@@ -4,12 +4,24 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 function Search({ searchTerm, setSearchTerm }) {
+  const [loading, setLoading] = useState(true);
+
   const searchVacancy = async (e) => {
     e.preventDefault();
     console.log(`Searching for ${searchTerm}...`);
   };
+
+  if (loading) {
+    return (
+      <div>
+        <Spinner animation="border" id="loading" />
+        <p id="loading-text">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div id="search_container">

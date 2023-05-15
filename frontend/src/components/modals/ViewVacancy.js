@@ -5,6 +5,9 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import descript from "../../static/hastag.png";
+import map from "../../static/map.png"
+import money from "../../static/salary.png";
 
 function ViewVacancy({ show, onHide, vacancy }) {
   const successNotify = () => {
@@ -66,9 +69,18 @@ function ViewVacancy({ show, onHide, vacancy }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Description: {vacancy.Description}</p>
-          <p>Per month: {vacancy.Salary}</p>
-          <p>Location: {vacancy.Location}</p>
+          <p>
+            <img src={descript} id="img_descript" />
+            Description: {vacancy.Description}
+          </p>
+          <p>
+            <img src={money} id="img_descript" />
+            Per month: {vacancy.Salary}
+          </p>
+          <p>
+            <img src={map} id="img_descript" />
+            Location: {vacancy.Location}
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-primary" onClick={onHide}>

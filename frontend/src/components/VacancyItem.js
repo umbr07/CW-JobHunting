@@ -7,6 +7,9 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import descript from "../static/hastag.png";
+import map from "../static/map.png";
+import money from "../static/salary.png";
 
 export default function VacancyItem({ vacancy, loading }) {
   const [VacancyVisible, setVacancyVisible] = useState(false);
@@ -25,8 +28,8 @@ export default function VacancyItem({ vacancy, loading }) {
     });
   };
 
-  const errorNotify = (e) => {
-    toast.error(`Oops...something went wrong`, {
+  const errorNotify = (error) => {
+    toast.error(`Have you already responded to this vacancy`, {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -56,7 +59,7 @@ export default function VacancyItem({ vacancy, loading }) {
       });
       successNotify();
     } catch (e) {
-      errorNotify();
+      errorNotify(e.res);
     }
   };
 
@@ -70,9 +73,18 @@ export default function VacancyItem({ vacancy, loading }) {
         <Card id="card_vacancy" key={vacancy.id}>
           <Card.Header as="h4">{vacancy.Job_title}</Card.Header>
           <Card.Body>
-            <Card.Title>{vacancy.Description}</Card.Title>
-            <Card.Text>{vacancy.Salary}</Card.Text>
-            <Card.Text>{vacancy.Location}</Card.Text>
+            <Card.Title>
+              <img src={descript} id="img_descript" />
+              {vacancy.Description}
+            </Card.Title>
+            <Card.Text>
+              <img src={money} id="img_descript" />
+              {vacancy.Salary}
+            </Card.Text>
+            <Card.Text>
+              <img src={map} id="img_descript" />
+              {vacancy.Location}
+            </Card.Text>
             <Button
               variant="primary"
               onClick={() => appleVacancysUser(vacancy.Id)}

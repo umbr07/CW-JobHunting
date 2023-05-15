@@ -7,6 +7,8 @@ import EditProfile from "../components/modals/EditProfile";
 import axios from "axios";
 import SocialNetworkProfile from "../components/modals/SocialNetworkProfile";
 import { NavLink } from "react-router-dom";
+import github from "../static/github-logo.png";
+import linkedin from "../static/linkedin-sign.png";
 
 export default function Profiles() {
   const jwt = localStorage.getItem("token");
@@ -79,11 +81,15 @@ export default function Profiles() {
       </div>
       <div>
         {" "}
-        <Card class="black" style={{ width: "25.5rem" }} id="information_more">
+        <Card
+          class="black"
+          style={{ width: "25.5rem", height: "18rem" }}
+          id="information_more"
+        >
           <Card.Body>
             <Card.Title id="profile_title">Social network</Card.Title>
             <Card.Text>
-              GitHub:{" "}
+              <img src={github} id="img_network" />{" "}
               <strong>
                 <NavLink
                   to={InfoNetwork ? InfoNetwork.git_hub : ""}
@@ -94,7 +100,7 @@ export default function Profiles() {
               </strong>
             </Card.Text>
             <Card.Text>
-              LinkedIn:{" "}
+              <img src={linkedin} id="img_network" />{" "}
               <strong>
                 <NavLink
                   to={InfoNetwork ? InfoNetwork.linked_in : ""}

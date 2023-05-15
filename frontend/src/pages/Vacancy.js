@@ -8,13 +8,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Spinner from "react-bootstrap/Spinner";
 
 function Vacancy() {
-  const [searchTerm, setSearchTerm] = useState(" ");
+  const [searchTerm, setSearchTerm] = useState("");
   const [vacancy, setVacancy] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [vacancyPerPage] = useState(5);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const getVacancy = async () => {
@@ -27,12 +29,18 @@ function Vacancy() {
     getVacancy();
   }, []);
 
-  // const searchVacancyQuerry = async () => {
-  //   setLoading(true);
-  //   const res = await axios.get("http://localhost:5000/api/vacancysearch", {
-  //     searchTerm,
-  //   });
-  // };
+  const searchVacancyQuerry = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/vacancysearch", {
+        searchTerm,
+      });
+      setVacancy(res.data);
+      setCurrentPage(1);
+      setNotFound(res.data.length === 0);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const lastVacancyIndex = currentPage * vacancyPerPage;
   const firstVacancyIndex = lastVacancyIndex - vacancyPerPage;
@@ -66,19 +74,27 @@ function Vacancy() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Button variant="primary">Search</Button>
+                <Button variant="primary" onClick={searchVacancyQuerry}>
+                  Search
+                </Button>
               </Form>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </div>
       <div className="container mt-5">
-        <VacancyItem vacancy={currentVacancy} loading={loading} />
-        <Pagination
-          vacancyPerPage={vacancyPerPage}
-          totalVacancy={vacancy.length}
-          paginate={paginate}
-        />
+        {notFound ? (
+          <h1 id="not_search">No vacancies were found for your request</h1>
+        ) : (
+          <div>
+            <VacancyItem vacancy={currentVacancy} loading={loading} />
+            <Pagination
+              vacancyPerPage={vacancyPerPage}
+              totalVacancy={vacancy.length}
+              paginate={paginate}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
