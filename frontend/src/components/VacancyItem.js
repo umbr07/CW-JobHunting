@@ -53,7 +53,7 @@ export default function VacancyItem({ vacancy, loading }) {
       const id_user = decodedToken.id;
       console.log(id_user);
 
-      const res = await axios.post("http://localhost:5000/api/vacancyapply", {
+      const res = await axios.post("https://localhost:5000/api/vacancyapply", {
         id_user,
         id_vacancy,
       });

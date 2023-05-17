@@ -8,7 +8,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Spinner from "react-bootstrap/Spinner";
 
 function Vacancy() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +20,7 @@ function Vacancy() {
   useEffect(() => {
     const getVacancy = async () => {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/vacancy");
+      const res = await axios.get("https://localhost:5000/api/vacancy");
       setVacancy(res.data);
       setLoading(false);
       console.log(res.data);
@@ -31,7 +30,7 @@ function Vacancy() {
 
   const searchVacancyQuerry = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/vacancysearch", {
+      const res = await axios.post("https://localhost:5000/api/vacancysearch", {
         searchTerm,
       });
       setVacancy(res.data);

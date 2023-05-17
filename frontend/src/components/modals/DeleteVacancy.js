@@ -41,7 +41,7 @@ function DeleteVacancy({ show, onHide }) {
   };
 
   const loadVacancyInfo = async () => {
-    const res = await axios.get("http://localhost:5000/api/vacancy");
+    const res = await axios.get("https://localhost:5000/api/vacancy");
     setInfo(res.data);
   };
 
@@ -87,11 +87,11 @@ function DeleteVacancy({ show, onHide }) {
           <div style={{ height: "200px", width: "400px" }}>
             <Form>
               <Form.Label>
-                Enter the vacancy ID<span> *</span>
+                Vacancy ID<span> *</span>
               </Form.Label>
               <Form.Control
                 style={{ width: "280px" }}
-                placeholder={"Enter the user ID"}
+                placeholder={"Enter the vacancy ID"}
                 value={vacancyIdDelete}
                 onChange={(e) => setVacancyIdDelete(e.target.value)}
                 className={companyIdError ? "is-invalid" : ""}

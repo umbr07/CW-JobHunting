@@ -42,27 +42,27 @@ function EditeProfile({ show, onHide, Info, UserInfoAxios }) {
   };
 
   const EditInfoUser = async () => {
-    if (!FirstNameError) {
+    if (!Fname) {
       setFirstNameError(true);
     } else {
       setFirstNameError(false);
     }
-    if (!LastNameError) {
+    if (!Lname) {
       setLastNameError(true);
     } else {
       setLastNameError(false);
     }
-    if (!PhoneNumberError) {
+    if (!Phone) {
       setPhoneNumberError(true);
     } else {
       setPhoneNumberError(false);
     }
-    if (FirstNameError && LastNameError && PhoneNumberError) {
+    if (Fname && Lname && Phone) {
       try {
         const response = await EditUser(Fname, Lname, Phone);
         console.log(response);
         UserInfoAxios();
-        let success = "The vacancy was successfully added";
+        let success = "Profile changed";
         successNotify(success);
       } catch (e) {
         let error = "Fill in all the fields correctly";

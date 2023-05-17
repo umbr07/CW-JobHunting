@@ -126,14 +126,34 @@ export const EditUser = async (Fname, Lname, Phone) => {
   console.log(data);
 };
 
-export const EditNetworkUser = async (git_hub, linked_in) => {
+export const EditNetworkUser = async (
+  Specialization,
+  Expirience,
+  git_hub,
+  linked_in
+) => {
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
   const userId = parseInt(decodedToken.id);
   const { data } = await $host.post("api/editprofilenetwork", {
     userId,
+    Specialization,
+    Expirience,
     git_hub,
     linked_in,
+  });
+  console.log(data);
+};
+
+export const EditInfoCompany = async (CompanyName, Location, Descriptions) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const userId = parseInt(decodedToken.id);
+  const { data } = await $host.post("api/editprofilecompany", {
+    userId,
+    CompanyName,
+    Location,
+    Descriptions,
   });
   console.log(data);
 };

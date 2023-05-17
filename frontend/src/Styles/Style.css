@@ -29,6 +29,11 @@
   color: black;
 }
 
+#navLabel:hover {
+  border-bottom: 3px solid rgb(0, 140, 255);
+  padding-bottom: 16px;
+}
+
 span {
   color: red;
 }
@@ -162,7 +167,7 @@ span {
 }
 
 #information_more {
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 #avatar_profile {
@@ -186,4 +191,18 @@ span {
   width: 25px;
   height: 25px;
   margin-right: 5px;
+}
+
+#btn_go_vacancies {
+  margin-top: 55px;
+  padding: 10px;
+}
+
+.active-link {
+  border-bottom: 3px solid rgb(0, 140, 255);
+  padding-bottom: 16px;
+}
+
+#title_home_page {
+  margin-top: 15px;
 }

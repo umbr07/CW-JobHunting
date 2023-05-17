@@ -41,7 +41,7 @@ function DeleteUser({ show, onHide }) {
   };
 
   const loadUserInfo = async () => {
-    const res = await axios.get("http://localhost:5000/api/users");
+    const res = await axios.get("https://localhost:5000/api/users");
     setInfo(res.data);
   };
 
@@ -87,7 +87,7 @@ function DeleteUser({ show, onHide }) {
           <div style={{ height: "200px", width: "400px" }}>
             <Form>
               <Form.Label>
-                Enter the user ID<span> *</span>
+                User ID<span> *</span>
               </Form.Label>
               <Form.Control
                 style={{ width: "280px" }}

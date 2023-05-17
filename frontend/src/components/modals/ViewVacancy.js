@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import descript from "../../static/hastag.png";
-import map from "../../static/map.png"
+import map from "../../static/map.png";
 import money from "../../static/salary.png";
 
 function ViewVacancy({ show, onHide, vacancy }) {
@@ -44,7 +44,7 @@ function ViewVacancy({ show, onHide, vacancy }) {
       console.log(id_user);
       const id_vacancy = vacancy.Id;
 
-      const res = await axios.post("http://localhost:5000/api/vacancyapply", {
+      const res = await axios.post("https://localhost:5000/api/vacancyapply", {
         id_user,
         id_vacancy,
       });
@@ -71,15 +71,15 @@ function ViewVacancy({ show, onHide, vacancy }) {
         <Modal.Body>
           <p>
             <img src={descript} id="img_descript" />
-            Description: {vacancy.Description}
+            <strong>Description:</strong> {vacancy.Description}
           </p>
           <p>
             <img src={money} id="img_descript" />
-            Per month: {vacancy.Salary}
+            <strong>Per month:</strong> {vacancy.Salary}
           </p>
           <p>
             <img src={map} id="img_descript" />
-            Location: {vacancy.Location}
+            <strong>Location:</strong> {vacancy.Location}
           </p>
         </Modal.Body>
         <Modal.Footer>

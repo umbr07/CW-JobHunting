@@ -5,12 +5,19 @@ import Form from "react-bootstrap/Form";
 import { EditNetworkUser } from "../../http/userAPI";
 
 function SocialNetworkProfile({ show, onHide, InfoNetwork, UserNetworkAxios }) {
-  const [GitHub, setGitHub] = useState(" ");
-  const [LinkedIn, setLinkedIn] = useState(" ");
+  const [Specialization, setSpecialization] = useState("");
+  const [Expirience, setExpirience] = useState("");
+  const [GitHub, setGitHub] = useState("");
+  const [LinkedIn, setLinkedIn] = useState("");
 
   const EditInfoNetworkUser = async () => {
     try {
-      const response = await EditNetworkUser(GitHub, LinkedIn);
+      const response = await EditNetworkUser(
+        Specialization,
+        Expirience,
+        GitHub,
+        LinkedIn
+      );
       console.log(response);
       UserNetworkAxios();
     } catch (e) {
@@ -19,6 +26,8 @@ function SocialNetworkProfile({ show, onHide, InfoNetwork, UserNetworkAxios }) {
   };
 
   useEffect(() => {
+    setSpecialization(InfoNetwork ? InfoNetwork.Specialization : " ");
+    setExpirience(InfoNetwork ? InfoNetwork.Expirience : " ");
     setGitHub(InfoNetwork ? InfoNetwork.git_hub : " ");
     setLinkedIn(InfoNetwork ? InfoNetwork.linked_in : " ");
   }, [InfoNetwork]);
@@ -38,6 +47,22 @@ function SocialNetworkProfile({ show, onHide, InfoNetwork, UserNetworkAxios }) {
       </Modal.Header>
       <Modal.Body>
         <Form>
+          <Form.Label>
+            Specialization<span> *</span>
+          </Form.Label>
+          <Form.Control
+            placeholder={"Enter the Specialization"}
+            value={Specialization}
+            onChange={(e) => setSpecialization(e.target.value)}
+          ></Form.Control>
+          <Form.Label>
+            Expirience<span> *</span>
+          </Form.Label>
+          <Form.Control
+            placeholder={"Enter the Expirience"}
+            value={Expirience}
+            onChange={(e) => setExpirience(e.target.value)}
+          ></Form.Control>
           <Form.Label>
             GitHub<span> *</span>
           </Form.Label>

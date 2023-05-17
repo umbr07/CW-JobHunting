@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../Styles/Style.css";
 import { useContext } from "react";
 import { Context } from "../index";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { HOME_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
 import { LOGIN_ROUTE } from "../utils/consts";
@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 const Menu = observer(() => {
   const history = useNavigate();
   const { user } = useContext(Context);
+  const location = useLocation();
 
   const UserRole = localStorage.getItem("role");
 
@@ -44,17 +45,35 @@ const Menu = observer(() => {
           {user.isAuth ? (
             <Nav className="me-auto">
               <Nav.Link>
-                <NavLink id="navLabel" to={VACANCY_ROUTE}>
+                <NavLink
+                  id="navLabel"
+                  to={VACANCY_ROUTE}
+                  className={
+                    location.pathname === VACANCY_ROUTE ? "active-link" : ""
+                  }
+                >
                   Vacancy
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink id="navLabel" to={SUPPORT_ROUTE}>
+                <NavLink
+                  id="navLabel"
+                  to={SUPPORT_ROUTE}
+                  className={
+                    location.pathname === SUPPORT_ROUTE ? "active-link" : ""
+                  }
+                >
                   Support
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink id="navLabel" to={PROFILE_ROUTE}>
+                <NavLink
+                  id="navLabel"
+                  to={PROFILE_ROUTE}
+                  className={
+                    location.pathname === PROFILE_ROUTE ? "active-link" : ""
+                  }
+                >
                   Profiles
                 </NavLink>
               </Nav.Link>
@@ -62,12 +81,24 @@ const Menu = observer(() => {
           ) : (
             <Nav className="me-auto">
               <Nav.Link>
-                <NavLink id="navLabel" to={VACANCY_ROUTE}>
+                <NavLink
+                  id="navLabel"
+                  to={VACANCY_ROUTE}
+                  className={
+                    location.pathname === VACANCY_ROUTE ? "active-link" : ""
+                  }
+                >
                   Vacancy
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
-                <NavLink id="navLabel" to={SUPPORT_ROUTE}>
+                <NavLink
+                  id="navLabel"
+                  to={SUPPORT_ROUTE}
+                  className={
+                    location.pathname === SUPPORT_ROUTE ? "active-link" : ""
+                  }
+                >
                   Support
                 </NavLink>
               </Nav.Link>
