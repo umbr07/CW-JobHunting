@@ -198,14 +198,61 @@ class UserService {
     return user;
   }
 
-  async editUsersNetwork(id, git_hub, linked_in) {
-    const user = await prisma.SocialNetwork.create({
-      data: {
+  async getinfoCompany(id) {
+    const user = await prisma.company.findFirst({
+      where: { Id_company: id },
+    });
+    return user;
+  }
+
+  async getInfoUserMore(id) {
+    const user = await prisma.UserInfoMore.findFirst({
+      where: { Id_user: id },
+    });
+    return user;
+  }
+
+  async editUsersNetwork(id, Specialization, Expirience, git_hub, linked_in) {
+    const user = await prisma.SocialNetwork.upsert({
+      where: { Id_user: id }, // Условие поиска записи по полю Id_user
+      create: {
+        // Создание новой записи, если запись с указанным Id_user не найдена
         Id_user: id,
         git_hub: git_hub,
         linked_in: linked_in,
+        Specialization: Specialization,
+        Expirience: Expirience,
+      },
+      update: {
+        // Обновление существующей записи, если запись с указанным Id_user найдена
+        git_hub: git_hub,
+        linked_in: linked_in,
+        Specialization: Specialization,
+        Expirience: Expirience,
       },
     });
+
+    return user;
+  }
+
+  async editInfoCompany(id, CompanyName, Location, Descriptions) {
+    const user = await prisma.company.upsert({
+      where: { Id_company: id }, // Условие поиска записи по полю Id_user
+      create: {
+        // Создание новой записи, если запись с указанным Id_user не найдена
+        Id_company: id,
+        NameCompany: CompanyName,
+        Location: Location,
+        Description: Descriptions,
+      },
+      update: {
+        // Обновление существующей записи, если запись с указанным Id_user найдена
+        NameCompany: CompanyName,
+        Location: Location,
+        Description: Descriptions,
+      },
+    });
+
     return user;
   }
 }

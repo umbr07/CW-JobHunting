@@ -197,13 +197,54 @@ class UserController {
     }
   }
 
+  async GetInfoCompany(req, res, next) {
+    try {
+      const userId = parseInt(req.params.id);
+      const userData = await userService.getinfoCompany(userId);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async GetInfoUserMore(req, res, next) {
+    try {
+      const userId = parseInt(req.params.id);
+      const userData = await userService.getInfoUserMore(userId);
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async EditUsersNetwork(req, res, next) {
     try {
-      const { userId, git_hub, linked_in } = req.body;
+      const { userId, Specialization, Expirience, git_hub, linked_in } =
+        req.body;
       const userData = await userService.editUsersNetwork(
         userId,
+        Specialization,
+        Expirience,
         git_hub,
         linked_in
+      );
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async EditInfoCompany(req, res, next) {
+    try {
+      const { userId, CompanyName, Location, Descriptions } = req.body;
+      const userData = await userService.editInfoCompany(
+        userId,
+        CompanyName,
+        Location,
+        Descriptions
       );
 
       return res.json(userData);

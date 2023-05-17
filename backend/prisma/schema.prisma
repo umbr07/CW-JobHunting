@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Company {
-  Id_company  Int    @id(map: "PK__Company__465FEAEA900221FC")
-  NameCompany String @db.NVarChar(50)
-  Location    String @db.NVarChar(50)
-  Users       Users  @relation(fields: [Id_company], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Company_Users")
+  Id_company  Int     @id(map: "PK__Company__465FEAEA39ED3FD7")
+  NameCompany String  @db.NVarChar(50)
+  Location    String  @db.NVarChar(50)
+  Description String? @db.NVarChar(Max)
 }
 
 model sysdiagrams {
@@ -31,35 +31,45 @@ model Tokens {
 }
 
 model Users {
-  Id        Int      @id(map: "PK__Users__3214EC07B40E8DA8") @default(autoincrement())
-  Mail      String   @db.VarChar(50)
-  Password  String   @db.VarChar(Max)
-  Phone     String   @db.VarChar(50)
-  FirstName String   @db.NVarChar(50)
-  LastName  String   @db.NVarChar(50)
-  Role      Int      @default(0, map: "DF__Users__Role__49C3F6B7")
-  Company   Company?
+  Id        Int     @id(map: "PK__Users__3214EC07B40E8DA8") @default(autoincrement())
+  Mail      String  @db.VarChar(50)
+  Password  String  @db.VarChar(Max)
+  Phone     String  @db.VarChar(50)
+  FirstName String  @db.NVarChar(50)
+  LastName  String  @db.NVarChar(50)
+  Role      Int     @default(0, map: "DF__Users__Role__49C3F6B7")
   Tokens    Tokens?
 }
 
 model Vacancys {
   Id_company  Int
-  Id          Int    @id(map: "PK__Vacancys__3214EC07E4BDB7F3") @default(autoincrement())
+  Id          Int    @id(map: "PK__Vacancys__3214EC0726CC33B0") @default(autoincrement())
   Job_title   String @db.NVarChar(50)
-  Description String @db.NVarChar(50)
+  Description String @db.NVarChar(Max)
   Salary      String @db.NVarChar(30)
   Location    String @db.NVarChar(50)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model RespondVacancies {
-  Id           Int @id(map: "PK__RespondV__3214EC07764540DD") @default(autoincrement())
-  Id_vacancies Int
-  Id_user      Int  
+  Id             Int     @id(map: "PK__RespondV__3214EC07ABF777DB") @default(autoincrement())
+  Id_vacancies   Int
+  Id_company     Int
+  Id_user        Int
+  Mail           String  @db.VarChar(50)
+  Phone          String  @db.VarChar(50)
+  FirstName      String  @db.NVarChar(50)
+  LastName       String  @db.NVarChar(50)
+  git_hub        String? @db.NVarChar(Max)
+  linked_in      String? @db.NVarChar(Max)
+  Specialization String? @db.NVarChar(Max)
+  Expirience     String? @db.NVarChar(Max)
 }
 
 model SocialNetwork {
-  Id_user   Int     @id(map: "PK__SocialNe__B607F2482BC44F4F")
-  git_hub   String? @db.NVarChar(Max)
-  linked_in String? @db.NVarChar(Max)
+  Id_user        Int     @id(map: "PK__SocialNe__B607F2482AE6AECC")
+  git_hub        String? @db.NVarChar(Max)
+  linked_in      String? @db.NVarChar(Max)
+  Specialization String? @db.NVarChar(Max)
+  Expirience     String? @db.NVarChar(Max)
 }

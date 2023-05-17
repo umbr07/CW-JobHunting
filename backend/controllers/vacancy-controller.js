@@ -87,6 +87,22 @@ class VacancyController {
       next(e);
     }
   }
+
+  async GetVacancyCompanyApply(req, res, next) {
+    try {
+      const Id_comp = parseInt(req.params.id);
+      console.log(Id_comp);
+      const { idVacancy } = req.body;
+      console.log(idVacancy, Id_comp);
+      const VacancyData = await vacancyService.vacancyCompanyApply(
+        idVacancy,
+        Id_comp
+      );
+      return res.json(VacancyData);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new VacancyController();

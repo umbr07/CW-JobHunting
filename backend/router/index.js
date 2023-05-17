@@ -50,6 +50,10 @@ router.post(
   "/editprofilenetwork",
   userControllers.EditUsersNetwork
 ); /* edit profile */
+router.post(
+  "/editprofilecompany",
+  userControllers.EditInfoCompany
+); /* edit profile */
 router.get(
   "/usersinfo/:id",
   userControllers.GetInfoUser
@@ -58,12 +62,16 @@ router.get(
   "/usersinfonetwork/:id",
   userControllers.GetInfoUserNetwork
 ); /* user network info in profiles */
-
+router.get(
+  "/infocompany/:id",
+  userControllers.GetInfoCompany
+); /* user network info in profiles */
 router.get(
   "/vacancyinfo/:id",
   vacancyController.GetAllVacancyCompany
 ); /* Shows all vacancies of a certain company  */
 router.post("/vacancyapply", vacancyController.ApplyVacancyUser);
 router.post("/vacancysearch", vacancyController.VacancySearch);
+router.get("/vacancyinfoaplly/:id", vacancyController.GetVacancyCompanyApply);
 
 module.exports = router;

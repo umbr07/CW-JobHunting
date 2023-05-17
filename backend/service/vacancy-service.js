@@ -96,10 +96,43 @@ class VacancyService {
     if (userApply) {
       throw ApiError.BadRequest(`Вы уже откликались на эту вакансию`);
     }
+    const user = await prisma.users.findFirst({
+      where: {
+        Id: id_user,
+      },
+    });
+    if (user.Role === 2) {
+      throw ApiError.BadRequest(`Вы не можете откликнуться на эту вакансию`);
+    }
+    if (user.Role === 1) {
+      throw ApiError.BadRequest(`Вы не можете откликнуться на эту вакансию`);
+    }
+
+    const network = await prisma.socialNetwork.findFirst({
+      where: {
+        Id_user: id_user,
+      },
+    });
+
+    const compId = await prisma.vacancys.findFirst({
+      where: {
+        Id: id_vacancy,
+      },
+    });
+
     const vacancy = await prisma.RespondVacancies.create({
       data: {
         Id_vacancies: id_vacancy,
         Id_user: id_user,
+        Id_company: compId.Id_company,
+        Mail: user.Mail,
+        Phone: user.Phone,
+        FirstName: user.FirstName,
+        LastName: user.LastName,
+        git_hub: network?.git_hub || "",
+        linked_in: network?.linked_in || "",
+        Specialization: network?.Specialization || "",
+        Expirience: network?.Expirience || "",
       },
     });
     return vacancy;
@@ -108,10 +141,17 @@ class VacancyService {
   async vacancySearch(searchTerm) {
     const vacancySearch = await prisma.vacancys.findMany({
       where: {
-        Job_title: searchTerm,
+        Job_title: { contains: searchTerm },
       },
     });
     return vacancySearch;
+  }
+
+  async vacancyCompanyApply(idVacancy, Id_comp) {
+    const vacancy = await prisma.respondVacancies.findMany({
+      where: { Id_vacancies: idVacancy, Id_company: Id_comp },
+    });
+    return vacancy;
   }
 }
 
