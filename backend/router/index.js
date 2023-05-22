@@ -70,6 +70,10 @@ router.get(
   "/vacancyinfo/:id",
   vacancyController.GetAllVacancyCompany
 ); /* Shows all vacancies of a certain company  */
+router.get(
+  "/vacancyapply/:id",
+  vacancyController.GetAllVacancyApplyUser
+); /* Shows all vacancies of a certain company  */
 router.post("/vacancyapply", vacancyController.ApplyVacancyUser);
 router.post("/vacancysearch", vacancyController.VacancySearch);
 router.get("/vacancyinfoaplly/:id", vacancyController.GetVacancyCompanyApply);

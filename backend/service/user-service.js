@@ -75,7 +75,9 @@ class UserService {
           },
         },
       },
-      include: { Company: true },
+      include: {
+        Company: true,
+      },
     });
     const userDto = new UserDto(user);
     const token = generateJwt(user.Id, user.Mail, user.Role);
@@ -113,7 +115,6 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    /* Узнать правильно работает ли, но скорее всего нет !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }

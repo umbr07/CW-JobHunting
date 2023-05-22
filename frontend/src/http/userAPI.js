@@ -57,6 +57,7 @@ export const login = async (Mail, Password) => {
 export const check = async () => {
   const response = await $authHost.get("api/auth");
   localStorage.setItem("token", response.data.token);
+  localStorage.setItem("role", response.data.userRole); //
   console.log(localStorage);
   return response;
 };

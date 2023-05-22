@@ -30,7 +30,7 @@ function Home() {
         </Link>
       </Card.Body>
       <div>
-        <h1>Текущее время в реальном времени</h1>
+        <h3>While you're looking for a job, the clock is ticking</h3>
         <p>{time}</p>
       </div>
     </Card>

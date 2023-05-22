@@ -11,7 +11,6 @@ function VacancyApplyCompany({ Info }) {
           <tr>
             <th>ID</th>
             <th>ID vacancies</th>
-            <th>ID user</th>
             <th>Mail</th>
             <th>Phone</th>
             <th>First name</th>
@@ -27,7 +26,6 @@ function VacancyApplyCompany({ Info }) {
             <tr key={i}>
               <td style={{ width: "150px" }}>{Info.Id}</td>
               <td style={{ width: "150px" }}>{Info.Id_vacancies}</td>
-              <td style={{ width: "150px" }}>{Info.Id_user}</td>
               <td style={{ width: "170px" }}>{Info.Mail}</td>
               <td style={{ width: "170px" }}>{Info.Phone}</td>
               <td style={{ width: "170px" }}>{Info.FirstName}</td>

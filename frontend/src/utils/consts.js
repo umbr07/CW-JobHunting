@@ -7,3 +7,4 @@ export const PROFILE_ROUTE = "/profiles";
 export const VACANCY_ROUTE = "/vacancy";
 export const SUPPORT_ROUTE = "/support";
 export const COMPANYPANEL_ROUTE = "/companypanel";
+export const HISTORY_APPLY_VACANCY = "/history";

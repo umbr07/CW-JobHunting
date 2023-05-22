@@ -8,10 +8,12 @@ datasource db {
 }
 
 model Company {
-  Id_company  Int     @id(map: "PK__Company__465FEAEA39ED3FD7")
-  NameCompany String  @db.NVarChar(50)
-  Location    String  @db.NVarChar(50)
-  Description String? @db.NVarChar(Max)
+  Id_company  Int        @id(map: "PK__Company__465FEAEA39ED3FD7")
+  NameCompany String     @db.NVarChar(50)
+  Location    String     @db.NVarChar(50)
+  Description String?    @db.NVarChar(Max)
+  Users       Users      @relation(fields: [Id_company], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Company_Users")
+  Vacancys    Vacancys[]
 }
 
 model sysdiagrams {
@@ -24,46 +26,44 @@ model sysdiagrams {
   @@unique([principal_id, name], map: "UK_principal_name")
 }
 
-model Tokens {
-  Id_users     Int     @id(map: "PK__Tokens__98157C6D35BB440A")
-  refreshToken String? @db.NVarChar(Max)
-  Users        Users   @relation(fields: [Id_users], references: [Id], onUpdate: NoAction, map: "FK_Tokens_Users")
-}
-
 model Users {
-  Id        Int     @id(map: "PK__Users__3214EC07B40E8DA8") @default(autoincrement())
-  Mail      String  @db.VarChar(50)
-  Password  String  @db.VarChar(Max)
-  Phone     String  @db.VarChar(50)
-  FirstName String  @db.NVarChar(50)
-  LastName  String  @db.NVarChar(50)
-  Role      Int     @default(0, map: "DF__Users__Role__49C3F6B7")
-  Tokens    Tokens?
+  Id            Int            @id(map: "PK__Users__3214EC07B40E8DA8") @default(autoincrement())
+  Mail          String         @db.VarChar(50)
+  Password      String         @db.VarChar(Max)
+  Phone         String         @db.VarChar(50)
+  FirstName     String         @db.NVarChar(50)
+  LastName      String         @db.NVarChar(50)
+  Role          Int            @default(0, map: "DF__Users__Role__49C3F6B7")
+  Company       Company?
+  SocialNetwork SocialNetwork?
 }
 
 model Vacancys {
-  Id_company  Int
-  Id          Int    @id(map: "PK__Vacancys__3214EC0726CC33B0") @default(autoincrement())
-  Job_title   String @db.NVarChar(50)
-  Description String @db.NVarChar(Max)
-  Salary      String @db.NVarChar(30)
-  Location    String @db.NVarChar(50)
+  Id               Int                @id(map: "PK__Vacancys__3214EC0726CC33B0") @default(autoincrement())
+  Id_company       Int
+  Job_title        String             @db.NVarChar(50)
+  Description      String             @db.NVarChar(Max)
+  Salary           String             @db.NVarChar(30)
+  Location         String             @db.NVarChar(50)
+  RespondVacancies RespondVacancies[]
+  Company          Company            @relation(fields: [Id_company], references: [Id_company], onDelete: Cascade, onUpdate: NoAction, map: "FK_Vacancys_Company")
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model RespondVacancies {
-  Id             Int     @id(map: "PK__RespondV__3214EC07ABF777DB") @default(autoincrement())
+  Id             Int      @id(map: "PK__RespondV__3214EC07ABF777DB") @default(autoincrement())
   Id_vacancies   Int
   Id_company     Int
   Id_user        Int
-  Mail           String  @db.VarChar(50)
-  Phone          String  @db.VarChar(50)
-  FirstName      String  @db.NVarChar(50)
-  LastName       String  @db.NVarChar(50)
-  git_hub        String? @db.NVarChar(Max)
-  linked_in      String? @db.NVarChar(Max)
-  Specialization String? @db.NVarChar(Max)
-  Expirience     String? @db.NVarChar(Max)
+  Mail           String   @db.VarChar(50)
+  Phone          String   @db.VarChar(50)
+  FirstName      String   @db.NVarChar(50)
+  LastName       String   @db.NVarChar(50)
+  git_hub        String?  @db.NVarChar(Max)
+  linked_in      String?  @db.NVarChar(Max)
+  Specialization String?  @db.NVarChar(Max)
+  Expirience     String?  @db.NVarChar(Max)
+  Vacancys       Vacancys @relation(fields: [Id_vacancies], references: [Id], onUpdate: NoAction, onDelete: Cascade, map: "FK_RespondVacancies_Vacancys")
 }
 
 model SocialNetwork {
@@ -72,4 +72,5 @@ model SocialNetwork {
   linked_in      String? @db.NVarChar(Max)
   Specialization String? @db.NVarChar(Max)
   Expirience     String? @db.NVarChar(Max)
+  Users          Users   @relation(fields: [Id_user], references: [Id], onUpdate: NoAction, map: "FK_SocialNetwork_Users")
 }

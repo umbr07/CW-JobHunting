@@ -7,6 +7,7 @@ import CompanyReg from "./pages/CompanyReg";
 import Vacancy from "./pages/Vacancy";
 import Support from "./pages/Support";
 import CompanyPanel from "./pages/CompanyPanel";
+import History from "./pages/History";
 import {
   ADMIN_ROUTE,
   HOME_ROUTE,
@@ -17,6 +18,7 @@ import {
   VACANCY_ROUTE,
   SUPPORT_ROUTE,
   COMPANYPANEL_ROUTE,
+  HISTORY_APPLY_VACANCY,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -31,6 +33,10 @@ export const authRoutes = [
   {
     path: COMPANYPANEL_ROUTE,
     Component: CompanyPanel,
+  },
+  {
+    path: HISTORY_APPLY_VACANCY,
+    Component: History,
   },
 ];
 

@@ -13,6 +13,7 @@ import { LOGIN_ROUTE } from "../utils/consts";
 import { SUPPORT_ROUTE } from "../utils/consts";
 import { VACANCY_ROUTE } from "../utils/consts";
 import { PROFILE_ROUTE } from "../utils/consts";
+import { HISTORY_APPLY_VACANCY } from "../utils/consts";
 import { useNavigate } from "react-router-dom";
 
 const Menu = observer(() => {
@@ -77,6 +78,23 @@ const Menu = observer(() => {
                   Profiles
                 </NavLink>
               </Nav.Link>
+              {UserRole === "0" ? (
+                <Nav.Link>
+                  <NavLink
+                    id="navLabel"
+                    to={HISTORY_APPLY_VACANCY}
+                    className={
+                      location.pathname === HISTORY_APPLY_VACANCY
+                        ? "active-link"
+                        : ""
+                    }
+                  >
+                    History
+                  </NavLink>
+                </Nav.Link>
+              ) : (
+                " "
+              )}
             </Nav>
           ) : (
             <Nav className="me-auto">

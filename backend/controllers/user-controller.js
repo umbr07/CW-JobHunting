@@ -96,7 +96,8 @@ class UserController {
       req.user.lname,
       req.user.phone
     );
-    return res.json({ token });
+    const userRole = req.user.role; //
+    return res.json({ token, userRole }); //
   }
 
   async logout(req, res, next) {

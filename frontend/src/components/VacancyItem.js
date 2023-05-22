@@ -59,7 +59,7 @@ export default function VacancyItem({ vacancy, loading }) {
       });
       successNotify();
     } catch (e) {
-      errorNotify(e.res);
+      errorNotify();
     }
   };
 

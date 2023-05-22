@@ -63,6 +63,18 @@ class VacancyController {
     }
   }
 
+  async GetAllVacancyApplyUser(req, res, next) {
+    try {
+      const Id = parseInt(req.params.id);
+      console.log(Id);
+      const VacancyData = await vacancyService.getAllVacancyApplyUser(Id);
+
+      return res.json(VacancyData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async ApplyVacancyUser(req, res, next) {
     try {
       const { id_vacancy, id_user } = req.body;

@@ -86,6 +86,19 @@ class VacancyService {
     return vacancy;
   }
 
+  async getAllVacancyApplyUser(Id) {
+    const vacancy = await prisma.RespondVacancies.findMany({
+      where: {
+        Id_user: Id,
+      },
+      include: { Vacancys: true },
+    });
+    if (!vacancy) {
+      throw ApiError.BadRequest(`У пользователя нету откликов на вакансии`);
+    }
+    return vacancy;
+  }
+
   async applyVacancyUser(id_vacancy, id_user) {
     const userApply = await prisma.RespondVacancies.findFirst({
       where: {
@@ -113,6 +126,9 @@ class VacancyService {
         Id_user: id_user,
       },
     });
+    if (!network.Specialization) {
+      throw ApiError.BadRequest(`Вы не можете откликнуться на эту вакансию`);
+    }
 
     const compId = await prisma.vacancys.findFirst({
       where: {

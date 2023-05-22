@@ -8,12 +8,27 @@ import { login } from "../http/userAPI";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = observer(() => {
   const { user } = useContext(Context);
   const [Mail, setEmail] = useState(" ");
   const [Password, setPassword] = useState(" ");
   const navigate = useNavigate();
+
+  const errorNotify = (error) => {
+    toast.error(`${error}`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   const sigin = async () => {
     try {
@@ -23,7 +38,8 @@ const Login = observer(() => {
       user.setIsAuth(true);
       navigate(HOME_ROUTE);
     } catch (e) {
-      alert(e.response);
+      let errors = "Check the correctness of the entered data";
+      errorNotify(errors);
     }
   };
   return (
@@ -74,6 +90,7 @@ const Login = observer(() => {
           </Button>
         </NavLink>
       </Form>
+      <ToastContainer />
     </div>
   );
 });

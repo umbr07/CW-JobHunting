@@ -9,10 +9,7 @@ export const Context = createContext(null);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Context.Provider
-    value={{
-      user: new UserStore(),
-      vacancy: new VacancyStore(),
-    }}
+    value={{ user: new UserStore(), vacancy: new VacancyStore() }}
   >
     <React.StrictMode>
       <App />
